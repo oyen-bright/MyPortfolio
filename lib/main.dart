@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_portfolio/cubit/cubit/theme_cubit.dart';
+import 'package:my_portfolio/view/desktop_view.dart';
+import 'package:my_portfolio/view/mobile_view.dart';
+import 'package:my_portfolio/view/tablet_view.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 void main() {
+  ResponsiveSizingConfig.instance.setCustomBreakpoints(
+    const ScreenBreakpoints(desktop: 800, tablet: 550, watch: 200),
+  );
   runApp(const MyApp());
 }
 
@@ -18,6 +25,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Oyeniyi Bright | Portfolio',
             theme: state.theme,
+            themeMode: ThemeMode.system,
             home: const Home(),
           );
         },
@@ -31,16 +39,10 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          TextButton(
-              onPressed: () {
-                context.read<ThemeCubit>().switchTheme();
-              },
-              child: const Text("Switch theme"))
-        ],
-      ),
+    return ScreenTypeLayout.builder(
+      mobile: (BuildContext context) => const MobileView(),
+      tablet: (BuildContext context) => const TabletView(),
+      desktop: (BuildContext context) => const DesktopView(),
     );
   }
 }

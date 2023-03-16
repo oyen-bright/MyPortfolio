@@ -28,13 +28,19 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animated_text_kit: ^4.2.2
+  auto_size_text: ^3.0.0
   cupertino_icons: ^1.0.2
+  day_night_switcher: ^0.2.0+1
+  dropdown_button2: ^2.0.0
   flip_panel: ^1.0.1
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
   font_awesome_flutter: ^10.4.0
+  google_fonts: ^4.0.3
   random_text_reveal: ^0.0.5
+  responsive_builder: ^0.6.4
+  sizedbox_extention: ^0.0.2
   url_launcher: ^6.1.10
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -50,9 +56,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/logos/
+    - assets/images/
+    - assets/projects/
+    - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
