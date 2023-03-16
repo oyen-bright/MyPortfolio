@@ -1,4 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:backdrop/backdrop.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -120,33 +121,44 @@ class AppbarTitle extends StatelessWidget {
         return GestureDetector(
           onTap: () => setState(() => isFinished = false),
           child: Padding(
-              padding: EdgeInsets.only(left: context.width / 18),
-              child: Builder(builder: (_) {
-                if (isFinished) {
-                  return SizedBox(
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          const Text("Bright's  "),
-                          AnimatedTextKit(
-                            totalRepeatCount: 1,
-                            onFinished: () =>
-                                setState(() => isFinished = false),
-                            animatedTexts: [
-                              FadeAnimatedText('Portefeuille ${emoji()}'),
-                              FadeAnimatedText('文件夹 ${emoji()}'),
-                              FadeAnimatedText('портфолио ${emoji()}'),
-                              FadeAnimatedText('ポートフォリオ ${emoji()}'),
-                            ],
-                          ),
-                        ],
-                      ));
-                }
-                return const RandomTextReveal(
-                  text: "Bright's Portfolio ✌️",
-                  duration: Duration(milliseconds: 1500),
-                );
-              })),
+              padding: EdgeInsets.only(left: context.width / 51),
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Backdrop.of(context).fling();
+                      },
+                      icon: const FaIcon(FontAwesomeIcons.tasks)),
+                  Expanded(
+                    child: Builder(builder: (_) {
+                      if (isFinished) {
+                        return SizedBox(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                const Text("Bright's  "),
+                                AnimatedTextKit(
+                                  totalRepeatCount: 1,
+                                  onFinished: () =>
+                                      setState(() => isFinished = false),
+                                  animatedTexts: [
+                                    FadeAnimatedText('Portefeuille ${emoji()}'),
+                                    FadeAnimatedText('文件夹 ${emoji()}'),
+                                    FadeAnimatedText('портфолио ${emoji()}'),
+                                    FadeAnimatedText('ポートフォリオ ${emoji()}'),
+                                  ],
+                                ),
+                              ],
+                            ));
+                      }
+                      return const RandomTextReveal(
+                        text: "Bright's Portfolio ✌️",
+                        duration: Duration(milliseconds: 1500),
+                      );
+                    }),
+                  ),
+                ],
+              )),
         );
       });
     });
@@ -213,7 +225,7 @@ class _CustomeListTileState extends State<CustomeListTile> {
 
   @override
   Widget build(BuildContext context) {
-    final fontSize = context.theme.textTheme.titleMedium!.fontSize;
+    final fontSize = context.theme.textTheme.titleSmall!.fontSize;
 
     return MouseRegion(
       onHover: (_) => setState(() => onHoverSize = 3),
@@ -222,7 +234,7 @@ class _CustomeListTileState extends State<CustomeListTile> {
         iconColor: context.theme.iconTheme.color,
         title: Text(
           widget.sectionTitle["Title"],
-          style: context.theme.textTheme.titleMedium!
+          style: context.theme.textTheme.titleSmall!
               .copyWith(fontSize: fontSize! + onHoverSize),
         ),
         onTap: () {

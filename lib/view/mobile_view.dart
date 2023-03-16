@@ -12,6 +12,7 @@ class MobileView extends StatelessWidget {
       appBar: customAppBar(context, scrollController: scrollcontroller),
       endDrawer: const EndDrawer(),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         children: const [Fotter()],
       ),

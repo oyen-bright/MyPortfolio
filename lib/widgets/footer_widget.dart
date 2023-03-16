@@ -297,7 +297,7 @@ class CopyWrite extends StatelessWidget {
   Widget build(BuildContext context) {
     final year = DateTime.parse(DateTime.now().toString()).year;
     return Container(
-        margin: const EdgeInsets.only(top: 15),
+        margin: const EdgeInsets.only(top: 15, bottom: 3),
         color: context.theme.colorScheme.background,
         width: double.infinity,
         padding: const EdgeInsets.all(15),

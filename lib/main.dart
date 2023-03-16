@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_portfolio/cubit/cubit/theme_cubit.dart';
@@ -27,6 +28,14 @@ class MyApp extends StatelessWidget {
             title: 'Oyeniyi Bright | Portfolio',
             theme: state.theme,
             themeMode: ThemeMode.system,
+            scrollBehavior: const MaterialScrollBehavior().copyWith(
+              dragDevices: {
+                PointerDeviceKind.mouse,
+                PointerDeviceKind.touch,
+                PointerDeviceKind.stylus,
+                PointerDeviceKind.unknown
+              },
+            ),
             home: const Home(),
           );
         },
