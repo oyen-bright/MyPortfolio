@@ -12,130 +12,281 @@ class Fotter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nameTextController = TextEditingController();
+    final emailTextController = TextEditingController();
+    final messageTextController = TextEditingController();
+    final formKey = GlobalKey<FormState>();
     return // Construct and pass in a widget builder per screen type
-        ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => Container(color: Colors.blue),
-      tablet: (BuildContext context) => Container(color: Colors.yellow),
-      desktop: (BuildContext context) => const DesktopFotter(),
-      watch: (BuildContext context) => Container(color: Colors.purple),
-    );
+        Column(children: [
+      ScreenTypeLayout.builder(
+        // breakpoints:
+        //     const ScreenBreakpoints(desktop: 1000, tablet: 900, watch: 200),
+        mobile: (BuildContext context) => MobileFotter(
+          emailTextController: emailTextController,
+          formkey: formKey,
+          messageTextController: messageTextController,
+          nameTextController: nameTextController,
+        ),
+        tablet: (BuildContext context) => TabletFotter(
+          emailTextController: emailTextController,
+          formkey: formKey,
+          messageTextController: messageTextController,
+          nameTextController: nameTextController,
+        ),
+        desktop: (BuildContext context) => DesktopFotter(
+          emailTextController: emailTextController,
+          formkey: formKey,
+          messageTextController: messageTextController,
+          nameTextController: nameTextController,
+        ),
+        watch: (BuildContext context) => Container(color: Colors.purple),
+      ),
+      const CopyWrite()
+    ]);
+  }
+}
+
+class MobileFotter extends StatelessWidget {
+  const MobileFotter(
+      {super.key,
+      required this.formkey,
+      required this.nameTextController,
+      required this.emailTextController,
+      required this.messageTextController});
+  final GlobalKey<FormState> formkey;
+  final TextEditingController nameTextController;
+  final TextEditingController emailTextController;
+  final TextEditingController messageTextController;
+
+  @override
+  Widget build(BuildContext context) {
+    final nameTextController = TextEditingController();
+    final emailTextController = TextEditingController();
+    final messageTextController = TextEditingController();
+
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: context.width / 18),
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: FotterImputContactUsWidget(
+                  isRow: false,
+                  formKey: formkey,
+                  nameTextController: nameTextController,
+                  emailTextController: emailTextController,
+                  messageTextController: messageTextController),
+            ),
+            const FotterImageWidget(),
+          ],
+        ));
+  }
+}
+
+class TabletFotter extends StatelessWidget {
+  const TabletFotter(
+      {super.key,
+      required this.formkey,
+      required this.nameTextController,
+      required this.emailTextController,
+      required this.messageTextController});
+  final GlobalKey<FormState> formkey;
+  final TextEditingController nameTextController;
+  final TextEditingController emailTextController;
+  final TextEditingController messageTextController;
+
+  @override
+  Widget build(BuildContext context) {
+    final nameTextController = TextEditingController();
+    final emailTextController = TextEditingController();
+    final messageTextController = TextEditingController();
+
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: context.width / 18),
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              child: FotterImputContactUsWidget(
+                  formKey: formkey,
+                  nameTextController: nameTextController,
+                  emailTextController: emailTextController,
+                  messageTextController: messageTextController),
+            ),
+            const FotterImageWidget(),
+          ],
+        ));
   }
 }
 
 class DesktopFotter extends StatelessWidget {
-  const DesktopFotter({super.key});
+  const DesktopFotter(
+      {super.key,
+      required this.formkey,
+      required this.nameTextController,
+      required this.emailTextController,
+      required this.messageTextController});
+  final GlobalKey<FormState> formkey;
+  final TextEditingController nameTextController;
+  final TextEditingController emailTextController;
+  final TextEditingController messageTextController;
+
+  @override
+  Widget build(BuildContext context) {
+    final nameTextController = TextEditingController();
+    final emailTextController = TextEditingController();
+    final messageTextController = TextEditingController();
+
+    return Container(
+        margin: EdgeInsets.symmetric(horizontal: context.width / 18),
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: FotterImputContactUsWidget(
+                    formKey: formkey,
+                    nameTextController: nameTextController,
+                    emailTextController: emailTextController,
+                    messageTextController: messageTextController)),
+            const Expanded(child: FotterImageWidget()),
+          ],
+        ));
+  }
+}
+
+class FotterImageWidget extends StatelessWidget {
+  const FotterImageWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      "assets/images/pngwing1.png",
+      scale: 7,
+      height: 700,
+    );
+  }
+}
+
+class FotterImputContactUsWidget extends StatelessWidget {
+  const FotterImputContactUsWidget(
+      {super.key,
+      required this.formKey,
+      required this.nameTextController,
+      required this.emailTextController,
+      required this.messageTextController,
+      this.isRow = true});
+
+  final GlobalKey<FormState> formKey;
+  final TextEditingController nameTextController;
+  final TextEditingController emailTextController;
+  final TextEditingController messageTextController;
+  final bool isRow;
 
   @override
   Widget build(BuildContext context) {
     final bigStyle = GoogleFonts.poppins(
         textStyle: context.theme.textTheme.headlineLarge!
             .copyWith(fontWeight: FontWeight.bold));
-
-    final nameTextController = TextEditingController();
-    final emailTextController = TextEditingController();
-    final messageTextController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
-
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: context.width / 18),
+    return Form(
+      key: formKey,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: context.theme.colorScheme.onSecondary,
+        ),
+        padding: EdgeInsets.symmetric(
+            horizontal: context.width / 25, vertical: context.width / 30),
         child: Column(
           children: [
-            Row(
-              children: [
-                Expanded(
-                    flex: 1,
-                    child: Form(
-                      key: formKey,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: context.theme.colorScheme.onSecondary,
-                        ),
-                        padding: EdgeInsets.symmetric(
-                            horizontal: context.width / 25,
-                            vertical: context.width / 30),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                                width: double.infinity,
-                                child: AutoSizeText(
-                                  "Contact.",
-                                  style: bigStyle,
-                                )),
-                            2.height,
-                            SizedBox(
-                                width: double.infinity,
-                                child: AutoSizeText(
-                                  "Get in touch.",
-                                  style: bigStyle,
-                                )),
-                            10.height,
-                            const SizedBox(
-                                width: double.infinity,
-                                child: AutoSizeText("Leave me a message.")),
-                            30.height,
-                            SizedBox(
-                              width: double.infinity,
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: TextBoxInput(
-                                      validate: true,
-                                      title: "Name",
-                                      controller: nameTextController,
-                                      helperText: "Please input your name",
-                                      icon: const FaIcon(FontAwesomeIcons.user),
-                                    ),
-                                  ),
-                                  30.width,
-                                  Expanded(
-                                    child: TextBoxInput(
-                                      helperText: "Please input your email",
-                                      title: "Email",
-                                      controller: emailTextController,
-                                      icon: const FaIcon(
-                                          FontAwesomeIcons.envelope),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            15.height,
-                            TextBoxInput(
-                              helperText: "",
-                              title: "Message",
-                              validate: true,
-                              maxLenght: 10,
-                              controller: messageTextController,
-                              icon: const FaIcon(FontAwesomeIcons.envelope),
-                            ),
-                            ElevatedButton(
-                                onPressed: () {
-                                  if (formKey.currentState!.validate()) {}
-                                  // downloadPdfFromAssets();
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 8.0, vertical: 15),
-                                  child: Text("SEND MESSAGE"),
-                                )),
-                          ],
+            SizedBox(
+                width: double.infinity,
+                child: AutoSizeText(
+                  "Contact.",
+                  style: bigStyle,
+                )),
+            2.height,
+            SizedBox(
+                width: double.infinity,
+                child: AutoSizeText(
+                  "Get in touch.",
+                  style: bigStyle,
+                )),
+            10.height,
+            const SizedBox(
+                width: double.infinity,
+                child: AutoSizeText("Leave me a message.")),
+            30.height,
+            SizedBox(
+              width: double.infinity,
+              child: Builder(builder: (_) {
+                if (isRow) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: TextBoxInput(
+                          validate: true,
+                          title: "Name",
+                          controller: nameTextController,
+                          helperText: "Please input your name",
+                          icon: const FaIcon(FontAwesomeIcons.user),
                         ),
                       ),
-                    )),
-                Expanded(
-                    child: Container(
-                  child: Image.asset(
-                    "assets/images/pngwing1.png",
-                    scale: 7,
-                    height: 700,
-                  ),
-                )),
-              ],
+                      30.width,
+                      Expanded(
+                        child: TextBoxInput(
+                          helperText: "Please input your email",
+                          title: "Email",
+                          controller: emailTextController,
+                          icon: const FaIcon(FontAwesomeIcons.envelope),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return Column(
+                  children: [
+                    TextBoxInput(
+                      validate: true,
+                      title: "Name",
+                      controller: nameTextController,
+                      helperText: "Please input your name",
+                      icon: const FaIcon(FontAwesomeIcons.user),
+                    ),
+                    15.height,
+                    TextBoxInput(
+                      helperText: "Please input your email",
+                      title: "Email",
+                      controller: emailTextController,
+                      icon: const FaIcon(FontAwesomeIcons.envelope),
+                    ),
+                  ],
+                );
+              }),
             ),
-            const CopyWrite()
+            15.height,
+            TextBoxInput(
+              helperText: "",
+              title: "Message",
+              validate: true,
+              maxLenght: 10,
+              controller: messageTextController,
+              icon: const FaIcon(FontAwesomeIcons.envelope),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {}
+                  // downloadPdfFromAssets();
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                  child: Text("SEND MESSAGE"),
+                )),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
 

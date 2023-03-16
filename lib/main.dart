@@ -8,7 +8,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 void main() {
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
-    const ScreenBreakpoints(desktop: 800, tablet: 550, watch: 200),
+    const ScreenBreakpoints(desktop: 800, tablet: 700, watch: 200),
   );
   runApp(const MyApp());
 }
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Oyeniyi Bright | Portfolio',
             theme: state.theme,
             themeMode: ThemeMode.system,
