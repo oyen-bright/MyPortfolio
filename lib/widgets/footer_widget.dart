@@ -301,9 +301,30 @@ class CopyWrite extends StatelessWidget {
         color: context.theme.colorScheme.background,
         width: double.infinity,
         padding: const EdgeInsets.all(15),
-        child: Center(
-          child: Text(
-              "© $year Oyeniyi Bright. All Rights Reserved. Built with Flutter"),
+        child: Column(
+          children: [
+            // SizedBox(
+            //   width: double.infinity,
+            //   child: Center(
+            //     child: SizedBox(
+            //       child: TextLiquidFill(
+            //         text: 'LIQUIDY',
+            //         waveColor: Colors.blueAccent,
+            //         boxBackgroundColor: Colors.redAccent,
+            //         textStyle: const TextStyle(
+            //           fontSize: 10.0,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //         boxHeight: 20.0,
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            Center(
+              child: Text(
+                  "© $year Oyeniyi Bright. All Rights Reserved. Built with Flutter"),
+            ),
+          ],
         ));
   }
 }
