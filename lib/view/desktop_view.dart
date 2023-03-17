@@ -2,10 +2,13 @@ import 'package:backdrop/backdrop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
+import 'package:my_portfolio/cubit/cubit/scroll_cubit.dart';
 import 'package:my_portfolio/widgets/appbar_widget.dart';
+import 'package:my_portfolio/widgets/backdrop_widget.dart';
 import 'package:my_portfolio/widgets/footer_widget.dart';
 import 'package:my_portfolio/widgets/header_widget.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
@@ -23,9 +26,9 @@ class _DesktopViewState extends State<DesktopView> {
     scrollController = ScrollController();
     _focusNode = FocusNode();
     scrollController.addListener(() {
-      // if (scrollController.offset < -38) {
-      //   Backdrop.of(context).fling();
-      // }
+      if (scrollController.offset < -0) {
+        // Backdrop.of(context).fling();
+      }
     });
     super.initState();
   }
@@ -68,41 +71,44 @@ class _DesktopViewState extends State<DesktopView> {
 
   @override
   Widget build(BuildContext context) {
-    return BackdropScaffold(
-      floatingActionButton: ScrollUpFAB(scrollController: scrollController),
-      frontLayerScrim: context.theme.colorScheme.secondary.withOpacity(0.5),
-      headerHeight: context.height / 2,
-      frontLayerBorderRadius: BorderRadius.zero,
-      backLayer: Container(
-        width: context.width,
-        height: context.height,
-        color: context.theme.scaffoldBackgroundColor,
-      ),
-      appBar: customAppBar(context, scrollController: scrollController),
-      frontLayer: RawKeyboardListener(
-        autofocus: true,
-        focusNode: _focusNode,
-        onKey: _handleKeyEvent,
-        child: Scrollbar(
-          thickness: 8,
-          controller: scrollController,
-          trackVisibility: true,
-          thumbVisibility: true,
-          child: ListView(
-            controller: scrollController,
-            physics: const BouncingScrollPhysics(),
-            shrinkWrap: true,
-            children: [const Header(), 100.height, const Fotter()],
+    final initiaHeight = (context.height / 2);
+    return BlocBuilder<ScrollCubit, ScrollState>(
+      builder: (context, state) {
+        return BackdropScaffold(
+          floatingActionButton: ScrollUpFAB(scrollController: scrollController),
+          frontLayerScrim: context.theme.colorScheme.secondary.withOpacity(0.5),
+          headerHeight: initiaHeight - state.scrollOffset,
+          frontLayerBorderRadius: BorderRadius.zero,
+          backLayer: const BackDropScreen(),
+          appBar: customAppBar(context, scrollController: scrollController),
+          frontLayer: RawKeyboardListener(
+            autofocus: true,
+            focusNode: _focusNode,
+            onKey: _handleKeyEvent,
+            child: Scrollbar(
+              thickness: 8,
+              controller: scrollController,
+              trackVisibility: true,
+              thumbVisibility: true,
+              child: ListView(
+                controller: scrollController,
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                children: [const Header(), 100.height, const Fotter()],
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
 
 class ScrollUpFAB extends StatefulWidget {
-  const ScrollUpFAB({super.key, required this.scrollController});
+  const ScrollUpFAB(
+      {super.key, required this.scrollController, this.closeFAB = false});
   final ScrollController scrollController;
+  final bool closeFAB;
 
   @override
   State<ScrollUpFAB> createState() => _ScrollUpFABState();
@@ -116,7 +122,7 @@ class _ScrollUpFABState extends State<ScrollUpFAB> {
     final scontroller = widget.scrollController;
 
     scontroller.addListener(() {
-      if (scontroller.offset == scontroller.position.maxScrollExtent) {
+      if (scontroller.offset >= scontroller.position.maxScrollExtent) {
         setState(() {
           isVisible = true;
         });
@@ -135,28 +141,37 @@ class _ScrollUpFABState extends State<ScrollUpFAB> {
       visible: isVisible,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 20, right: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton.extended(
-              onPressed: () {
-                Backdrop.of(context).fling();
-              },
-              icon: const FaIcon(FontAwesomeIcons.listCheck),
-              label: Container(),
-            ),
-            15.width,
-            FloatingActionButton(
-              onPressed: () {
-                final scontroller = widget.scrollController;
-                scontroller.animateTo(scontroller.position.minScrollExtent,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.bounceOut);
-              },
-              child: const FaIcon(FontAwesomeIcons.arrowUp),
-            ),
-          ],
-        ),
+        child: Builder(builder: (context) {
+          final close = widget.closeFAB;
+          var extendedFAB = FloatingActionButton.extended(
+            onPressed: () {
+              Backdrop.of(context).fling();
+            },
+            icon: FaIcon(
+                close ? FontAwesomeIcons.xmark : FontAwesomeIcons.listCheck),
+            label: close ? const Text("Close") : Container(),
+          );
+          print(close);
+          if (close) {
+            return extendedFAB;
+          }
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              extendedFAB,
+              15.width,
+              FloatingActionButton(
+                onPressed: () {
+                  final scontroller = widget.scrollController;
+                  scontroller.animateTo(scontroller.position.minScrollExtent,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.bounceOut);
+                },
+                child: const FaIcon(FontAwesomeIcons.arrowUp),
+              ),
+            ],
+          );
+        }),
       ),
     );
   }

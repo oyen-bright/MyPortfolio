@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_portfolio/cubit/cubit/scroll_cubit.dart';
 import 'package:my_portfolio/cubit/cubit/theme_cubit.dart';
 import 'package:my_portfolio/view/desktop_view.dart';
 import 'package:my_portfolio/view/mobile_view.dart';
@@ -19,8 +20,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ThemeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ThemeCubit>(
+          create: (context) => ThemeCubit(),
+        ),
+        BlocProvider<ScrollCubit>(
+          create: (context) => ScrollCubit(),
+        ),
+      ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
