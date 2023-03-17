@@ -128,7 +128,7 @@ class AppbarTitle extends StatelessWidget {
                       onPressed: () {
                         Backdrop.of(context).fling();
                       },
-                      icon: const FaIcon(FontAwesomeIcons.tasks)),
+                      icon: const FaIcon(FontAwesomeIcons.listCheck)),
                   Expanded(
                     child: Builder(builder: (_) {
                       if (isFinished) {

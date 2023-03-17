@@ -2,6 +2,7 @@ import 'package:backdrop/backdrop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/widgets/appbar_widget.dart';
@@ -68,6 +69,7 @@ class _DesktopViewState extends State<DesktopView> {
   @override
   Widget build(BuildContext context) {
     return BackdropScaffold(
+      floatingActionButton: ScrollUpFAB(scrollController: scrollController),
       frontLayerScrim: context.theme.colorScheme.secondary.withOpacity(0.5),
       headerHeight: context.height / 2,
       frontLayerBorderRadius: BorderRadius.zero,
@@ -77,16 +79,6 @@ class _DesktopViewState extends State<DesktopView> {
         color: context.theme.scaffoldBackgroundColor,
       ),
       appBar: customAppBar(context, scrollController: scrollController),
-      // appBar: AppBar(
-      //   leading: const BackdropToggleButton(
-      //     icon: AnimatedIcons.list_view,
-      //   ),
-      //   actions: const [
-      //     BackdropToggleButton(
-      //       icon: AnimatedIcons.list_view,
-      //     ),
-      //   ],
-      // ),
       frontLayer: RawKeyboardListener(
         autofocus: true,
         focusNode: _focusNode,
@@ -102,6 +94,68 @@ class _DesktopViewState extends State<DesktopView> {
             shrinkWrap: true,
             children: [const Header(), 100.height, const Fotter()],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ScrollUpFAB extends StatefulWidget {
+  const ScrollUpFAB({super.key, required this.scrollController});
+  final ScrollController scrollController;
+
+  @override
+  State<ScrollUpFAB> createState() => _ScrollUpFABState();
+}
+
+class _ScrollUpFABState extends State<ScrollUpFAB> {
+  bool isVisible = false;
+
+  @override
+  void initState() {
+    final scontroller = widget.scrollController;
+
+    scontroller.addListener(() {
+      if (scontroller.offset == scontroller.position.maxScrollExtent) {
+        setState(() {
+          isVisible = true;
+        });
+      } else {
+        setState(() {
+          isVisible = false;
+        });
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Visibility(
+      visible: isVisible,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 20, right: 15),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton.extended(
+              onPressed: () {
+                Backdrop.of(context).fling();
+              },
+              icon: const FaIcon(FontAwesomeIcons.listCheck),
+              label: Container(),
+            ),
+            15.width,
+            FloatingActionButton(
+              onPressed: () {
+                final scontroller = widget.scrollController;
+                scontroller.animateTo(scontroller.position.minScrollExtent,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.bounceOut);
+              },
+              child: const FaIcon(FontAwesomeIcons.arrowUp),
+            ),
+          ],
         ),
       ),
     );
