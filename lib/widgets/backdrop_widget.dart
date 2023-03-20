@@ -76,7 +76,22 @@ class _BackDropScreenState extends State<BackDropScreen> {
                         image: AssetImage(
                             "assets/background/pngwing.com (1).png"))),
                 child: ScreenTypeLayout.builder(
-                  mobile: (BuildContext context) => Container(),
+                  mobile: (BuildContext context) {
+                    return ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView(
+                        controller: scrollController,
+                        children: [
+                          CurrentworkingonDisplay(bigStyle: bigStyle),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 60),
+                            child: ProjectsView(),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                   tablet: (BuildContext context) {
                     return ScrollConfiguration(
                       behavior: ScrollConfiguration.of(context)

@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/data/data.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -16,66 +17,114 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: context.height / 1.5,
-      decoration: BoxDecoration(
-          color: context.theme.colorScheme.onSecondary,
-          image: const DecorationImage(
-              fit: BoxFit.fitWidth,
-              opacity: 0.8,
-              image: AssetImage(
-                  "assets/background/PikPng.com_png-images-for-website_5782721.png"))),
-      child: Row(children: [
-        Expanded(
-            flex: 4,
-            child: Container(
-              // decoration: const BoxDecoration(
-              //     image: DecorationImage(
-              //         fit: BoxFit.fitWidth,
-              //         opacity: 0.8,
-              //         image: AssetImage(
-              //             "assets/background/PikPng.com_png-images-for-website_5782721.png"))),
-              child: Padding(
-                padding: EdgeInsets.only(
-                  left: context.width / 18,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '"I Am:',
-                      style: Theme.of(context).textTheme.displayMedium,
+        height: context.height / 1.5,
+        decoration: BoxDecoration(
+            color: context.theme.colorScheme.onSecondary,
+            image: const DecorationImage(
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.topCenter,
+                opacity: 0.3,
+                image: AssetImage(
+                    "assets/background/PikPng.com_png-images-for-website_5782721.png"))),
+        child: ScreenTypeLayout.builder(
+          mobile: (BuildContext context) {
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: context.width / 18),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  30.height,
+                  Expanded(
+                    flex: 3,
+                    child: Center(
+                      child: Image.asset(
+                        "assets/ppp2.png",
+                        scale: 9,
+                        fit: BoxFit.contain,
+                      ),
                     ),
-                    const TypeWriterTextWidget(
-                      fontSize: 75,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const SocialMediaIconsWidget(),
-                    10.height,
-                    const DownloadResume()
-                  ],
-                ),
+                  ),
+                  Expanded(
+                      flex: 4,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              '"I Am:',
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                          ),
+                          const TypeWriterTextWidget(
+                            fontSize: 75,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                              alignment: Alignment.center,
+                              width: double.infinity,
+                              child: const SocialMediaIconsWidget()),
+                          10.height,
+                          const DownloadResume(
+                            centered: true,
+                          )
+                        ],
+                      )),
+                ],
               ),
-            )),
-        Expanded(
-          flex: 3,
-          child: Container(
-              margin: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 18 * 2, left: 10),
-              // width: 200,
-              // height: 300,
-              child: Center(
-                child: Image.asset(
-                  "assets/ppp2.png",
-                  scale: 9,
-                  fit: BoxFit.contain,
-                ),
-              )),
-        ),
-      ]),
-    );
+            );
+          },
+          desktop: (BuildContext context) {
+            return Row(children: [
+              Expanded(
+                  flex: 4,
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: context.width / 18,
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '"I Am:',
+                          style: Theme.of(context).textTheme.displayMedium,
+                        ),
+                        const TypeWriterTextWidget(
+                          fontSize: 75,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        const SocialMediaIconsWidget(),
+                        10.height,
+                        const DownloadResume()
+                      ],
+                    ),
+                  )),
+              Expanded(
+                flex: 3,
+                child: Container(
+                    margin: EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width / 18 * 2,
+                        left: 10),
+                    // width: 200,
+                    // height: 300,
+                    child: Center(
+                      child: Image.asset(
+                        "assets/ppp2.png",
+                        scale: 9,
+                        fit: BoxFit.contain,
+                      ),
+                    )),
+              ),
+            ]);
+          },
+        ));
   }
 }
 
@@ -157,7 +206,9 @@ class SocialMediaIconsWidget extends StatelessWidget {
 }
 
 class DownloadResume extends StatelessWidget {
-  const DownloadResume({Key? key}) : super(key: key);
+  const DownloadResume({Key? key, this.centered = false}) : super(key: key);
+
+  final bool centered;
 
   @override
   Widget build(BuildContext context) {
@@ -195,6 +246,8 @@ class DownloadResume extends StatelessWidget {
     }
 
     return Row(
+      mainAxisAlignment:
+          centered ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: [
         ElevatedButton(
             onPressed: () {
