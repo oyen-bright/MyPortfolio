@@ -79,39 +79,45 @@ class _BackDropScreenState extends State<BackDropScreen> {
                       .copyWith(scrollbars: false),
                   child: Row(
                     children: [
-                      Container(
-                        height: 500,
-                        width: 600,
-                        margin: EdgeInsets.only(bottom: context.height / 7),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 600,
-                              child: AutoSizeText("Currently".toUpperCase(),
-                                  textAlign: TextAlign.left, style: bigStyle),
-                            ),
-                            SizedBox(
-                              width: 600,
-                              child: TextLiquidFill(
-                                loadUntil: 0.8,
-                                text: 'Working on'.toUpperCase(),
-                                textAlign: TextAlign.left,
-                                waveColor: context.theme.colorScheme.primary,
-                                boxBackgroundColor:
-                                    context.theme.colorScheme.brightness ==
-                                            Brightness.light
-                                        ? Colors.yellowAccent
-                                        : Colors.yellow,
-                                textStyle: bigStyle,
-                                boxHeight: 100.0,
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          height: 500,
+                          margin: EdgeInsets.only(
+                              bottom: context.height / 7, right: 10),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                child: AutoSizeText("Currently".toUpperCase(),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.left,
+                                    style: bigStyle),
                               ),
-                            ),
-                          ],
+                              SizedBox(
+                                width: double.infinity,
+                                child: TextLiquidFill(
+                                  boxWidth: double.infinity,
+                                  loadUntil: 0.8,
+                                  text: 'Working on'.toUpperCase(),
+                                  textAlign: TextAlign.center,
+                                  waveColor: context.theme.colorScheme.primary,
+                                  boxBackgroundColor: context
+                                              .theme.colorScheme.brightness ==
+                                          Brightness.light
+                                      ? const Color.fromRGBO(255, 253, 143, 1)
+                                      : const Color.fromRGBO(163, 163, 61, 1),
+                                  textStyle: bigStyle,
+                                  boxHeight: 122,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       Expanded(
+                        flex: 4,
                         child: ListView(
                           controller: scrollController,
                           children: [
@@ -163,51 +169,57 @@ class ProjectDisplay extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Container(
-            height: 630,
-            width: double.infinity,
-            color: Colors.pink,
-          ),
           Expanded(
+            child: Container(
+              width: double.infinity,
+              color: Colors.pink,
+            ),
+          ),
+          SizedBox(
+              height: 220,
               child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 35),
-            child: Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: AutoSizeText(
-                    "Title",
-                    style: GoogleFonts.poppins(
-                        textStyle: context.theme.textTheme.titleLarge!
-                            .copyWith(fontWeight: FontWeight.bold)),
-                  ),
-                ),
-                5.height,
-                SizedBox(
-                  width: double.infinity,
-                  child: AutoSizeText(
-                    "this is the discription of the projeddsfsfsdf sdffdsfsdfdf sfsf sfsf sfsfsfsfsf ssffsf sfsf sff werwerwrr werwrwe rwrrw wrwr wrwr werwerwr wrewrwe rwrwrw rr",
-                    style: context.theme.textTheme.bodyMedium!.copyWith(),
-                  ),
-                ),
-                10.height,
-                Expanded(
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.zero,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 40, vertical: 35),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                      width: double.infinity,
+                      child: AutoSizeText(
+                        "Title",
+                        style: GoogleFonts.poppins(
+                            textStyle: context.theme.textTheme.titleLarge!
+                                .copyWith(fontWeight: FontWeight.bold)),
+                      ),
+                    ),
+                    5.height,
+                    SizedBox(
+                      height: 80,
+                      width: double.infinity,
+                      child: AutoSizeText(
+                        textAlign: TextAlign.justify,
+                        "this is the discription of the projeddsfsfsdf sdffdsfsdfdf sfsf sfsf sfsfsfsfsf ssffsf sfsf sff werwerwrr werwrwe rwrrw wrwr wrwr werwerwr wrewrwe rwrwrw rr",
+                        style: context.theme.textTheme.bodyMedium!.copyWith(),
+                      ),
+                    ),
+                    5.height,
+                    Expanded(
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const AutoSizeText("GitHub"),
                         ),
                       ),
-                      onPressed: () {},
-                      child: const AutoSizeText("GitHub"),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ))
+                    )
+                  ],
+                ),
+              ))
         ],
       ),
     );

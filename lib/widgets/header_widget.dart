@@ -26,7 +26,7 @@ class Header extends StatelessWidget {
                   "assets/background/PikPng.com_png-images-for-website_5782721.png"))),
       child: Row(children: [
         Expanded(
-            flex: 2,
+            flex: 4,
             child: Container(
               // decoration: const BoxDecoration(
               //     image: DecorationImage(
@@ -59,18 +59,21 @@ class Header extends StatelessWidget {
                 ),
               ),
             )),
-        Container(
-            margin: EdgeInsets.only(
-                right: MediaQuery.of(context).size.width / 18 * 2, left: 10),
-            // width: 200,
-            // height: 300,
-            child: Center(
-              child: Image.asset(
-                "assets/ppp2.png",
-                scale: 9,
-                fit: BoxFit.contain,
-              ),
-            )),
+        Expanded(
+          flex: 3,
+          child: Container(
+              margin: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width / 18 * 2, left: 10),
+              // width: 200,
+              // height: 300,
+              child: Center(
+                child: Image.asset(
+                  "assets/ppp2.png",
+                  scale: 9,
+                  fit: BoxFit.contain,
+                ),
+              )),
+        ),
       ]),
     );
   }

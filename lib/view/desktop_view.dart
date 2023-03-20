@@ -71,14 +71,14 @@ class _DesktopViewState extends State<DesktopView> {
 
   @override
   Widget build(BuildContext context) {
-    final initiaHeight = (context.height / 2);
     return BlocBuilder<ScrollCubit, ScrollState>(
       builder: (context, state) {
         return BackdropScaffold(
           floatingActionButton: ScrollUpFAB(scrollController: scrollController),
           frontLayerScrim: context.theme.colorScheme.secondary.withOpacity(0.5),
-          headerHeight: initiaHeight - state.scrollOffset,
+          headerHeight: (context.height / 2) - state.scrollOffset,
           frontLayerBorderRadius: BorderRadius.zero,
+          maintainBackLayerState: false,
           backLayer: const BackDropScreen(),
           appBar: customAppBar(context, scrollController: scrollController),
           frontLayer: RawKeyboardListener(
@@ -151,7 +151,7 @@ class _ScrollUpFABState extends State<ScrollUpFAB> {
                 close ? FontAwesomeIcons.xmark : FontAwesomeIcons.listCheck),
             label: close ? const Text("Close") : Container(),
           );
-          print(close);
+ 
           if (close) {
             return extendedFAB;
           }
