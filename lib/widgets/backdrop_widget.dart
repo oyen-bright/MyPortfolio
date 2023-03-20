@@ -8,6 +8,7 @@ import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/cubit/cubit/scroll_cubit.dart';
 import 'package:my_portfolio/view/desktop_view.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
 class BackDropScreen extends StatefulWidget {
@@ -65,83 +66,125 @@ class _BackDropScreenState extends State<BackDropScreen> {
                       ))),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: context.width / 18),
-              decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  image: DecorationImage(
-                      alignment: Alignment.topRight,
-                      opacity: 0.6,
-                      scale: 2,
-                      image:
-                          AssetImage("assets/background/pngwing.com (1).png"))),
-              child: ScrollConfiguration(
-                  behavior: ScrollConfiguration.of(context)
-                      .copyWith(scrollbars: false),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          height: 500,
-                          margin: EdgeInsets.only(
-                              bottom: context.height / 7, right: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                child: AutoSizeText("Currently".toUpperCase(),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.left,
-                                    style: bigStyle),
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: TextLiquidFill(
-                                  boxWidth: double.infinity,
-                                  loadUntil: 0.8,
-                                  text: 'Working on'.toUpperCase(),
-                                  textAlign: TextAlign.center,
-                                  waveColor: context.theme.colorScheme.primary,
-                                  boxBackgroundColor: context
-                                              .theme.colorScheme.brightness ==
-                                          Brightness.light
-                                      ? const Color.fromRGBO(255, 253, 143, 1)
-                                      : const Color.fromRGBO(163, 163, 61, 1),
-                                  textStyle: bigStyle,
-                                  boxHeight: 122,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                padding: EdgeInsets.symmetric(horizontal: context.width / 18),
+                decoration: const BoxDecoration(
+                    color: Colors.transparent,
+                    image: DecorationImage(
+                        alignment: Alignment.topRight,
+                        opacity: 0.6,
+                        scale: 2,
+                        image: AssetImage(
+                            "assets/background/pngwing.com (1).png"))),
+                child: ScreenTypeLayout.builder(
+                  mobile: (BuildContext context) => Container(),
+                  tablet: (BuildContext context) {
+                    return ScrollConfiguration(
+                      behavior: ScrollConfiguration.of(context)
+                          .copyWith(scrollbars: false),
+                      child: ListView(
+                        controller: scrollController,
+                        children: [
+                          CurrentworkingonDisplay(bigStyle: bigStyle),
+                          const ProjectsView(),
+                        ],
                       ),
-                      Expanded(
-                        flex: 4,
-                        child: ListView(
-                          controller: scrollController,
+                    );
+                  },
+                  desktop: (BuildContext context) {
+                    return ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: Row(
                           children: [
-                            150.height,
-                            50.height,
-                            Column(
-                              children: const [
-                                QouteWidgt(),
-                              ],
+                            Expanded(
+                              flex: 3,
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.only(bottom: context.height / 7),
+                                child:
+                                    CurrentworkingonDisplay(bigStyle: bigStyle),
+                              ),
                             ),
-                            Column(
-                              children: List.generate(
-                                  10, (index) => const ProjectDisplay()),
-                            )
-                          ],
+                            Expanded(
+                              flex: 4,
+                              child: ListView(
+                                controller: scrollController,
+                                children: [
+                                  150.height,
+                                  50.height,
+                                  const ProjectsView(),
+                                ],
 
-                          // return list item widget here
-                        ),
-                      ),
-                    ],
-                  )),
-            )
+                                // return list item widget here
+                              ),
+                            ),
+                          ],
+                        ));
+                  },
+                ))
           ],
         ),
+      ),
+    );
+  }
+}
+
+class ProjectsView extends StatelessWidget {
+  const ProjectsView({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const QouteWidgt(),
+        Column(
+          children: List.generate(10, (index) => const ProjectDisplay()),
+        )
+      ],
+    );
+  }
+}
+
+class CurrentworkingonDisplay extends StatelessWidget {
+  const CurrentworkingonDisplay({
+    super.key,
+    required this.bigStyle,
+  });
+
+  final TextStyle bigStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 500,
+      margin: const EdgeInsets.only(right: 10),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            child: AutoSizeText("Currently".toUpperCase(),
+                maxLines: 1, textAlign: TextAlign.left, style: bigStyle),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: TextLiquidFill(
+              boxWidth: double.infinity,
+              loadUntil: 0.8,
+              text: 'Working on'.toUpperCase(),
+              textAlign: TextAlign.center,
+              waveColor: context.theme.colorScheme.primary,
+              boxBackgroundColor:
+                  context.theme.colorScheme.brightness == Brightness.light
+                      ? const Color.fromRGBO(255, 253, 143, 1)
+                      : const Color.fromRGBO(163, 163, 61, 1),
+              textStyle: bigStyle,
+              boxHeight: 120,
+            ),
+          ),
+        ],
       ),
     );
   }

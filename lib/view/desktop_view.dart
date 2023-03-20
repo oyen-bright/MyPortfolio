@@ -2,12 +2,9 @@ import 'package:backdrop/backdrop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:my_portfolio/Extentions/screen_size_extention.dart';
-import 'package:my_portfolio/Extentions/theme_extention.dart';
-import 'package:my_portfolio/cubit/cubit/scroll_cubit.dart';
 import 'package:my_portfolio/widgets/appbar_widget.dart';
+import 'package:my_portfolio/widgets/backdrop_scaffold.dart';
 import 'package:my_portfolio/widgets/backdrop_widget.dart';
 import 'package:my_portfolio/widgets/footer_widget.dart';
 import 'package:my_portfolio/widgets/header_widget.dart';
@@ -44,7 +41,9 @@ class _DesktopViewState extends State<DesktopView> {
 
   late final FocusNode _focusNode;
 
-  void _handleKeyEvent(RawKeyEvent event) {
+  void handleKeyEvent(
+    RawKeyEvent event,
+  ) {
     var offset = scrollController.offset;
     if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
       setState(() {
@@ -71,36 +70,27 @@ class _DesktopViewState extends State<DesktopView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ScrollCubit, ScrollState>(
-      builder: (context, state) {
-        return BackdropScaffold(
-          floatingActionButton: ScrollUpFAB(scrollController: scrollController),
-          frontLayerScrim: context.theme.colorScheme.secondary.withOpacity(0.5),
-          headerHeight: (context.height / 2) - state.scrollOffset,
-          frontLayerBorderRadius: BorderRadius.zero,
-          maintainBackLayerState: false,
-          backLayer: const BackDropScreen(),
-          appBar: customAppBar(context, scrollController: scrollController),
-          frontLayer: RawKeyboardListener(
-            autofocus: true,
-            focusNode: _focusNode,
-            onKey: _handleKeyEvent,
-            child: Scrollbar(
-              thickness: 8,
+    return BackDropScaffold(
+        appBar: customAppBar(context, scrollController: scrollController),
+        scrollController: scrollController,
+        backLayer: const BackDropScreen(),
+        frontLayer: RawKeyboardListener(
+          autofocus: true,
+          focusNode: _focusNode,
+          onKey: handleKeyEvent,
+          child: Scrollbar(
+            thickness: 8,
+            controller: scrollController,
+            trackVisibility: true,
+            thumbVisibility: true,
+            child: ListView(
               controller: scrollController,
-              trackVisibility: true,
-              thumbVisibility: true,
-              child: ListView(
-                controller: scrollController,
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                children: [const Header(), 100.height, const Fotter()],
-              ),
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              children: [const Header(), 100.height, const Fotter()],
             ),
           ),
-        );
-      },
-    );
+        ));
   }
 }
 
@@ -151,7 +141,7 @@ class _ScrollUpFABState extends State<ScrollUpFAB> {
                 close ? FontAwesomeIcons.xmark : FontAwesomeIcons.listCheck),
             label: close ? const Text("Close") : Container(),
           );
- 
+
           if (close) {
             return extendedFAB;
           }
