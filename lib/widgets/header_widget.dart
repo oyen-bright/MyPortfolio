@@ -48,7 +48,7 @@ class Header extends StatelessWidget {
                       flex: 4,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           SizedBox(
                             width: double.infinity,
@@ -58,8 +58,10 @@ class Header extends StatelessWidget {
                               style: Theme.of(context).textTheme.displayMedium,
                             ),
                           ),
-                          const TypeWriterTextWidget(
-                            fontSize: 75,
+                          const SizedBox(
+                            child: TypeWriterTextWidget(
+                              fontSize: 75,
+                            ),
                           ),
                           const SizedBox(
                             height: 20,
@@ -145,6 +147,7 @@ class TypeWriterTextWidget extends StatelessWidget {
             const TextStyle(),
         child: FittedBox(
           child: AnimatedTextKit(
+            displayFullTextOnTap: true,
             totalRepeatCount: 100,
             animatedTexts: [
               TypewriterAnimatedText(

@@ -85,7 +85,7 @@ class _BackDropScreenState extends State<BackDropScreen> {
                         children: [
                           CurrentworkingonDisplay(bigStyle: bigStyle),
                           const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 60),
+                            padding: EdgeInsets.symmetric(horizontal: 20),
                             child: ProjectsView(),
                           ),
                         ],
