@@ -2,12 +2,15 @@ import 'package:backdrop/backdrop.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:my_portfolio/cubit/cubit/project_section_scroll_cubit.dart';
 import 'package:my_portfolio/widgets/appbar_widget.dart';
 import 'package:my_portfolio/widgets/backdrop_scaffold.dart';
 import 'package:my_portfolio/widgets/backdrop_widget.dart';
 import 'package:my_portfolio/widgets/footer_widget.dart';
 import 'package:my_portfolio/widgets/header_widget.dart';
+import 'package:my_portfolio/widgets/projects_widget.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
 class DesktopView extends StatefulWidget {
@@ -83,11 +86,26 @@ class _DesktopViewState extends State<DesktopView> {
             controller: scrollController,
             trackVisibility: true,
             thumbVisibility: true,
-            child: ListView(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              children: [const Header(), 100.height, const Fotter()],
+            child: BlocBuilder<ProjectSectionScrollCubit,
+                ProjectSectionScrollState>(
+              builder: (context, state) {
+                return ListView(
+                  controller: scrollController,
+                  physics: state.mainCanScrokk
+                      ? const BouncingScrollPhysics()
+                      : const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  children: [
+                    const Header(),
+                    50.height,
+                    ProjectsSection(
+                      scrollController: scrollController,
+                    ),
+                    50.height,
+                    const Fotter(),
+                  ],
+                );
+              },
             ),
           ),
         ));

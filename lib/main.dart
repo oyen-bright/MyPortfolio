@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_portfolio/cubit/cubit/project_section_scroll_cubit.dart';
 import 'package:my_portfolio/cubit/cubit/scroll_cubit.dart';
 import 'package:my_portfolio/cubit/cubit/theme_cubit.dart';
 import 'package:my_portfolio/view/desktop_view.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<ScrollCubit>(
           create: (context) => ScrollCubit(),
         ),
+        BlocProvider<ProjectSectionScrollCubit>(
+          create: (context) => ProjectSectionScrollCubit(),
+        ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, state) {
@@ -37,6 +41,7 @@ class MyApp extends StatelessWidget {
             theme: state.theme,
             themeMode: ThemeMode.system,
             scrollBehavior: const MaterialScrollBehavior().copyWith(
+              physics: const BouncingScrollPhysics(),
               dragDevices: {
                 PointerDeviceKind.mouse,
                 PointerDeviceKind.trackpad,
