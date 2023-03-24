@@ -49,182 +49,169 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     final bigStyle = GoogleFonts.roboto(
         textStyle: context.theme.textTheme.headlineLarge!
             .copyWith(fontWeight: FontWeight.bold));
-    return Container(
-      color: context.theme.colorScheme.background,
-      // height: MediaQuery.of(context).size.height / 1.5,
-      child: Center(
-        child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 0.0),
-            child: Text("Projects", style: bigStyle),
-          ),
-          20.height,
-          Container(
-            height: MediaQuery.of(context).size.height / 1.45,
-            padding: EdgeInsets.symmetric(horizontal: context.width / 18),
-            width: double.infinity,
-            child: Row(
-              children: [
-                Expanded(
-                    child: Container(
-                  child: LocationListItem(
+    return SizedBox(
+      // color: context.theme.colorScheme.background,
+
+      child: Column(children: [
+        Container(
+          height: 1150,
+          padding: EdgeInsets.symmetric(horizontal: context.width / 18),
+          width: double.infinity,
+          child: Row(
+            children: [
+              Expanded(
+                  child: Column(
+                children: [
+                  LocationListItem(
                       imageUrl:
                           "https://i0.wp.com/www.kroonapp.com/wp-content/uploads/2022/11/KROON-NEW-IMAGE-WEBSITE-3.png?w=721&ssl=1",
                       // imageUrl:
                       //     "https://i0.wp.com/www.kroonapp.com/wp-content/uploads/2022/11/KROON-NEW-IMAGE-WEBSITE-1.png?w=892&ssl=1",
                       name: "Kroon Kiosk",
                       country: "Be more than just a small business"),
-                )),
-                20.width,
-                Expanded(
-                    child: Container(
-                  child: LocationListItem(
+                  45.height,
+                  const BigProjectInfo(
+                    playStore:
+                        "https://play.google.com/store/apps/details?id=com.kroon.kiosk&hl=en&gl=US",
+                    appStore: "https://apps.apple.com/app/id1625893105",
+                    icon: "assets/logos/Kroon-Kiosk-logo.webp",
+                    iconScale: 10,
+                    title: "The small business partner",
+                    body:
+                        '''Kroon Kiosk is a mobile application that is available to all merchants without the need of special devices, merchant banking accounts or minimum transaction thresholds. Merchants can track their sales, inventory, employees and generate real-time reports inclusive of a business plan report.
+        
+For the first time informal traders and SMEs can generate credible business reports that can be used to apply for microfinancing or government assistance without the need of special training, directly from their mobile phones.''',
+                  ),
+                ],
+              )),
+              20.width,
+              Expanded(
+                  child: Column(
+                children: [
+                  LocationListItem(
                       imageUrl:
                           "https://i0.wp.com/www.kroonapp.com/wp-content/uploads/2022/11/KROON-NEW-IMAGE-WEBSITE-2.png?w=1083&ssl=1",
                       name: "Kroon",
                       country: "Kroon App is more than just a payments app."),
-                )),
-              ],
-            ),
-          ),
-          Container(
-            height: MediaQuery.of(context).size.height / 1.60,
-            padding: EdgeInsets.symmetric(horizontal: context.width / 18),
-            width: double.infinity,
-            child: Row(
-              children: [
-                const BigProjectInfo(
-                  playStore:
-                      "https://play.google.com/store/apps/details?id=com.kroon.kiosk&hl=en&gl=US",
-                  appStore: "https://apps.apple.com/app/id1625893105",
-                  icon: "assets/logos/Kroon-Kiosk-logo.webp",
-                  iconScale: 10,
-                  title: "The small business partner",
-                  body:
-                      '''Kroon Kiosk is a mobile application that is available to all merchants without the need of special devices, merchant banking accounts or minimum transaction thresholds. Merchants can track their sales, inventory, employees and generate real-time reports inclusive of a business plan report.
-
-For the first time informal traders and SMEs can generate credible business reports that can be used to apply for microfinancing or government assistance without the need of special training, directly from their mobile phones.''',
-                ),
-                20.width,
-                const BigProjectInfo(
-                  playStore:
-                      "https://play.google.com/store/apps/details?id=com.kroon.kiosk&hl=en&gl=US",
-                  appStore: "https://apps.apple.com/app/id1625893105",
-                  icon: "assets/logos/Kroon-App-Web-@1x.webp",
-                  iconScale: 6,
-                  title: "Kroon App is more than just a payments app...",
-                  body:
-                      '''Kroon App is the link between the merchant and the greater community. With low transaction fees the Kroon platform is designed and developed to be affordable and to assist the community in becoming more digital with how they use their money.
-
+                  45.height,
+                  const BigProjectInfo(
+                    playStore:
+                        "https://play.google.com/store/apps/details?id=com.kroon.kiosk&hl=en&gl=US",
+                    appStore: "https://apps.apple.com/app/id1625893105",
+                    icon: "assets/logos/Kroon-App-Web-@1x.webp",
+                    iconScale: 6,
+                    title: "Kroon App is more than just a payments app...",
+                    body:
+                        '''Kroon App is the link between the merchant and the greater community. With low transaction fees the Kroon platform is designed and developed to be affordable and to assist the community in becoming more digital with how they use their money.
+        
 With the Kroon App, you never have to worry about not having a bank account.
-
 Get a safe and secure mobile wallet linked to your Kroon account.
-
 Pay your bills or friends and family, instantly and safely.
-
 Want to shop online ?... Get your own virtual card in your local currency or USD.
-''',
-                ),
-              ],
-            ),
+        ''',
+                  ),
+                ],
+              )),
+            ],
           ),
-          50.height,
-          MouseRegion(
-            onHover: (_) {
-              final mainController = widget.scrollController;
+        ),
+        50.height,
+        MouseRegion(
+          onHover: (_) {
+            final mainController = widget.scrollController;
 
-              mainController.animateTo(1295,
-                  curve: Curves.ease,
-                  duration: const Duration(milliseconds: 500));
-              context
-                  .read<ProjectSectionScrollCubit>()
-                  .changeMainScreenSroll(false);
-            },
-            onExit: (_) {
-              animate();
-              context
-                  .read<ProjectSectionScrollCubit>()
-                  .changeMainScreenSroll(true);
-            },
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height / 1.8,
-              child: BlocBuilder<ProjectSectionScrollCubit,
-                  ProjectSectionScrollState>(
-                builder: (context, state) {
-                  return ListView.builder(
-                    physics: state.projectSectionCanScroll
-                        ? null
-                        : const NeverScrollableScrollPhysics(),
-                    controller: scrollController,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: projects.length,
-                    itemBuilder: (context, index) {
-                      final Uri url = Uri.parse(projects[index].gitlink);
-                      return Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: GestureDetector(
-                                onTap: () async {
-                                  if (await canLaunchUrl(url)) {
-                                    await launchUrl(url);
-                                  }
-                                },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(40),
-                                  child: Image.asset(
-                                    projects[index].imageString,
-                                    fit: BoxFit.cover,
-                                  ),
+            mainController.animateTo(1295,
+                curve: Curves.ease,
+                duration: const Duration(milliseconds: 500));
+            context
+                .read<ProjectSectionScrollCubit>()
+                .changeMainScreenSroll(false);
+          },
+          onExit: (_) {
+            animate();
+            context
+                .read<ProjectSectionScrollCubit>()
+                .changeMainScreenSroll(true);
+          },
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height / 1.8,
+            child: BlocBuilder<ProjectSectionScrollCubit,
+                ProjectSectionScrollState>(
+              builder: (context, state) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: state.projectSectionCanScroll
+                      ? null
+                      : const NeverScrollableScrollPhysics(),
+                  controller: scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: projects.length,
+                  itemBuilder: (context, index) {
+                    final Uri url = Uri.parse(projects[index].gitlink);
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Flexible(
+                            child: GestureDetector(
+                              onTap: () async {
+                                if (await canLaunchUrl(url)) {
+                                  await launchUrl(url);
+                                }
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: Image.asset(
+                                  projects[index].imageString,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                             ),
-                            Container(
-                              padding: const EdgeInsets.all(5.0),
-                              width: 280,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // SizedBox(
-                                  //   width: double.infinity,
-                                  //   child: SelectableText(
-                                  //     projects[index].projectName,
-                                  //     maxLines: 1,
-                                  //     style: Theme.of(context)
-                                  //         .textTheme
-                                  //         .headlineMedium,
-                                  //   ),
-                                  // ),
-                                  IconButton(
-                                    onPressed: () async {
-                                      if (await canLaunchUrl(url)) {
-                                        await launchUrl(url);
-                                      }
-                                    },
-                                    icon: const FaIcon(
-                                      FontAwesomeIcons.link,
-                                      size: 16,
-                                    ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(5.0),
+                            width: 280,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // SizedBox(
+                                //   width: double.infinity,
+                                //   child: SelectableText(
+                                //     projects[index].projectName,
+                                //     maxLines: 1,
+                                //     style: Theme.of(context)
+                                //         .textTheme
+                                //         .headlineMedium,
+                                //   ),
+                                // ),
+                                IconButton(
+                                  onPressed: () async {
+                                    if (await canLaunchUrl(url)) {
+                                      await launchUrl(url);
+                                    }
+                                  },
+                                  icon: const FaIcon(
+                                    FontAwesomeIcons.link,
+                                    size: 16,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
             ),
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 
@@ -253,53 +240,54 @@ class BigProjectInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Image.asset(
-            icon,
-            scale: iconScale,
-          ),
-          15.height,
-          AutoSizeText(
-            title,
-            style: context.theme.textTheme.headlineMedium!
-                .copyWith(fontWeight: FontWeight.bold),
-          ),
-          10.height,
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(right: 200),
-              child:
-                  AutoSizeText(body, style: context.theme.textTheme.bodyLarge!),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: context.width / 30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset(
+              icon,
+              scale: iconScale,
             ),
-          ),
-          25.height,
-          Row(
-            children: [
-              IconButton(
-                icon: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset("assets/logos/app-store.webp")),
-                iconSize: 50,
-                onPressed: () {
-                  launchUrl(Uri.parse(appStore));
-                },
-              ),
-              10.width,
-              IconButton(
-                icon: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset("assets/logos/play-store.webp")),
-                iconSize: 50,
-                onPressed: () {
-                  launchUrl(Uri.parse(playStore));
-                },
-              ),
-            ],
-          )
-        ],
+            35.height,
+            AutoSizeText(
+              title,
+              style: context.theme.textTheme.headlineMedium!
+                  .copyWith(fontWeight: FontWeight.bold),
+            ),
+            10.height,
+            SizedBox(
+              width: double.infinity,
+              child: AutoSizeText(body,
+                  minFontSize: context.theme.textTheme.bodyLarge!.fontSize!,
+                  style: context.theme.textTheme.bodyLarge!),
+            ),
+            25.height,
+            Wrap(
+              children: [
+                IconButton(
+                  icon: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset("assets/logos/app-store.webp")),
+                  onPressed: () {
+                    launchUrl(Uri.parse(appStore));
+                  },
+                ),
+                10.width,
+                IconButton(
+                  icon: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset("assets/logos/play-store.webp")),
+                  onPressed: () {
+                    launchUrl(Uri.parse(playStore));
+                  },
+                ),
+              ],
+            ),
+            const Spacer()
+          ],
+        ),
       ),
     );
   }
