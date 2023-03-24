@@ -10,6 +10,7 @@ import 'package:my_portfolio/widgets/backdrop_scaffold.dart';
 import 'package:my_portfolio/widgets/backdrop_widget.dart';
 import 'package:my_portfolio/widgets/footer_widget.dart';
 import 'package:my_portfolio/widgets/header_widget.dart';
+import 'package:my_portfolio/widgets/packages.dart';
 import 'package:my_portfolio/widgets/projects_widget.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
@@ -102,6 +103,7 @@ class _DesktopViewState extends State<DesktopView> {
                       scrollController: scrollController,
                     ),
                     50.height,
+                    const Packages(),
                     const Fotter(),
                   ],
                 );

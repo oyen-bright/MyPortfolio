@@ -54,6 +54,12 @@ class _ProjectsSectionState extends State<ProjectsSection> {
 
       child: Column(children: [
         Container(
+            padding: EdgeInsets.symmetric(horizontal: context.width / 18),
+            width: double.infinity,
+            child:
+                Text("Projects", style: context.theme.textTheme.displaySmall)),
+        25.height,
+        Container(
           height: 1150,
           padding: EdgeInsets.symmetric(horizontal: context.width / 18),
           width: double.infinity,
