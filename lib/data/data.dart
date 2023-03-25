@@ -1,5 +1,6 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_portfolio/models/projects.dart';
+import 'package:my_portfolio/models/skills.dart';
 import 'package:my_portfolio/models/social_media.dart';
 
 import '../models/package.dart';
@@ -98,4 +99,27 @@ List<Packages> packages = [
       version: "0.0.1",
       body: "A flutter Package for Numpad layout on screen.",
       url: "https://pub.dev/packages/flutter_numpad"),
+];
+
+List<Skills> skills = [
+  Skills(
+      imageString: "assets/logos/FlutterLogo.png",
+      skillName: "Flutter",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/DartLogo.png",
+      skillName: "Dart",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/FirebaseLogo.png",
+      skillName: "Firebase",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/MayaLogo.jpg",
+      skillName: "Maya",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/AELogo.png",
+      skillName: "After Effects",
+      yearsOfExperience: "2"),
 ];

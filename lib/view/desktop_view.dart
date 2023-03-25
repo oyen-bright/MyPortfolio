@@ -12,6 +12,7 @@ import 'package:my_portfolio/widgets/footer_widget.dart';
 import 'package:my_portfolio/widgets/header_widget.dart';
 import 'package:my_portfolio/widgets/packages.dart';
 import 'package:my_portfolio/widgets/projects_widget.dart';
+import 'package:my_portfolio/widgets/skills_widget.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
 class DesktopView extends StatefulWidget {
@@ -104,6 +105,7 @@ class _DesktopViewState extends State<DesktopView> {
                     ),
                     50.height,
                     const Packages(),
+                    const SkillsSection(),
                     const Fotter(),
                   ],
                 );
