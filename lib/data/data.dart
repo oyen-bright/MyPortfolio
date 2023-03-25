@@ -115,11 +115,35 @@ List<Skills> skills = [
       skillName: "Firebase",
       yearsOfExperience: "2"),
   Skills(
-      imageString: "assets/logos/MayaLogo.jpg",
-      skillName: "Maya",
+      imageString: "assets/logos/python-original.png",
+      skillName: "python",
       yearsOfExperience: "2"),
   Skills(
-      imageString: "assets/logos/AELogo.png",
-      skillName: "After Effects",
+      imageString: "assets/logos/django.png",
+      skillName: "django",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/android-original-wordmark.png",
+      skillName: "Android",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/swift-original.png",
+      skillName: "Swift",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/java-original.png",
+      skillName: "Java",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/javascript-original.png",
+      skillName: "JavaScript",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/html5-original-wordmark.png",
+      skillName: "HTML",
+      yearsOfExperience: "2"),
+  Skills(
+      imageString: "assets/logos/css3-original-wordmark.png",
+      skillName: "CSS",
       yearsOfExperience: "2"),
 ];

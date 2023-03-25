@@ -1,5 +1,4 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:backdrop/backdrop.dart';
 import 'package:day_night_switcher/day_night_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -121,46 +120,38 @@ class AppbarTitle extends StatelessWidget {
         return GestureDetector(
           onTap: () => setState(() => isFinished = false),
           child: Padding(
-              padding: EdgeInsets.only(left: context.width / 51),
-              child: Container(
-                child: Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          Backdrop.of(context).fling();
-                        },
-                        icon: const FaIcon(FontAwesomeIcons.listCheck)),
-                    Expanded(
-                      child: Builder(builder: (_) {
-                        if (isFinished) {
-                          return SizedBox(
-                              width: double.infinity,
-                              child: Row(
-                                children: [
-                                  const Text("Bright's  "),
-                                  AnimatedTextKit(
-                                    totalRepeatCount: 1,
-                                    onFinished: () =>
-                                        setState(() => isFinished = false),
-                                    animatedTexts: [
-                                      FadeAnimatedText(
-                                          'Portefeuille ${emoji()}'),
-                                      FadeAnimatedText('文件夹 ${emoji()}'),
-                                      FadeAnimatedText('портфолио ${emoji()}'),
-                                      FadeAnimatedText('ポートフォリオ ${emoji()}'),
-                                    ],
-                                  ),
-                                ],
-                              ));
-                        }
-                        return const RandomTextReveal(
-                          text: "Bright's Portfolio ✌️",
-                          duration: Duration(milliseconds: 1500),
-                        );
-                      }),
-                    ),
-                  ],
-                ),
+              padding: EdgeInsets.only(left: context.width / 21),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Builder(builder: (_) {
+                      if (isFinished) {
+                        return SizedBox(
+                            width: double.infinity,
+                            child: Row(
+                              children: [
+                                const Text("Bright's  "),
+                                AnimatedTextKit(
+                                  totalRepeatCount: 1,
+                                  onFinished: () =>
+                                      setState(() => isFinished = false),
+                                  animatedTexts: [
+                                    FadeAnimatedText('Portefeuille ${emoji()}'),
+                                    FadeAnimatedText('文件夹 ${emoji()}'),
+                                    FadeAnimatedText('портфолио ${emoji()}'),
+                                    FadeAnimatedText('ポートフォリオ ${emoji()}'),
+                                  ],
+                                ),
+                              ],
+                            ));
+                      }
+                      return const RandomTextReveal(
+                        text: "Bright's Portfolio ✌️",
+                        duration: Duration(milliseconds: 1500),
+                      );
+                    }),
+                  ),
+                ],
               )),
         );
       });

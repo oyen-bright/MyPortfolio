@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:my_portfolio/cubit/cubit/project_section_scroll_cubit.dart';
+import 'package:my_portfolio/widgets/about.dart';
 import 'package:my_portfolio/widgets/appbar_widget.dart';
 import 'package:my_portfolio/widgets/backdrop_scaffold.dart';
 import 'package:my_portfolio/widgets/backdrop_widget.dart';
@@ -106,6 +107,7 @@ class _DesktopViewState extends State<DesktopView> {
                     50.height,
                     const Packages(),
                     const SkillsSection(),
+                    const AboutSection(),
                     const Fotter(),
                   ],
                 );

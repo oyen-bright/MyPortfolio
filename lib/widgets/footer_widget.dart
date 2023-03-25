@@ -139,16 +139,52 @@ class DesktopFotter extends StatelessWidget {
 
     return Container(
         margin: EdgeInsets.symmetric(horizontal: context.width / 18),
-        child: Row(
+        child: Column(
           children: [
-            Expanded(
-                flex: 1,
-                child: FotterImputContactUsWidget(
-                    formKey: formkey,
-                    nameTextController: nameTextController,
-                    emailTextController: emailTextController,
-                    messageTextController: messageTextController)),
-            const Expanded(child: FotterImageWidget()),
+            //   Expanded(
+            //     child: Container(
+            //   margin: const EdgeInsets.all(100),
+            //   child: Center(
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.start,
+            //       children: const [
+            //         FittedBox(
+            //             child: ContactInfo(
+            //           heading: "Email:",
+            //           info: "atemiehartkelvin@rocketmail.com",
+            //         )),
+            //         SizedBox(
+            //           height: 15,
+            //         ),
+            //         FittedBox(
+            //             child: ContactInfo(
+            //           heading: "Mobile Number:",
+            //           info: "+2349056025603            ",
+            //         )),
+            //         SizedBox(
+            //           height: 15,
+            //         ),
+            //         SocialMediaIconsWidget(),
+            //         SizedBox(
+            //           height: 15,
+            //         ),
+            //         DownloadResume()
+            //       ],
+            //     ),
+            //   ),
+            // )),
+            Row(
+              children: [
+                Expanded(
+                    flex: 1,
+                    child: FotterImputContactUsWidget(
+                        formKey: formkey,
+                        nameTextController: nameTextController,
+                        emailTextController: emailTextController,
+                        messageTextController: messageTextController)),
+                const Expanded(child: FotterImageWidget()),
+              ],
+            ),
           ],
         ));
   }
