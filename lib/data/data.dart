@@ -82,21 +82,20 @@ List<Projects> projects = [
 
 List<Packages> packages = [
   Packages(
-      title: "fsizedbox_extention",
+      title: "sizedbox_extention",
       version: "0.0.2",
       body:
-          "FA Flutter package allows you to put empty space between widgets without using a Container or SizedBox widget.",
+          "A Flutter package allows you to put empty space between widgets without using a Container or SizedBox widget.",
       url: "https://pub.dev/packages/sizedbox_extention"),
   Packages(
       title: "flutter_loading_appbar",
       version: "0.0.1",
       body:
-          "Futter loading is a package that allows your to add liner progress indicator under the app bar,",
+          "A Flutter package for showing a linear progress indicator under the Appbar.",
       url: "https://pub.dev/packages/flutter_loading_appbar"),
   Packages(
       title: "flutter_numpad",
       version: "0.0.1",
-      body:
-          "Futter numpad is a package that allows your to add liner progress indicator under the app bar,",
+      body: "A flutter Package for Numpad layout on screen.",
       url: "https://pub.dev/packages/flutter_numpad"),
 ];
