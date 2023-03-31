@@ -7,44 +7,42 @@ class ContactInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.all(100),
-            child: Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const FittedBox(
-                      child: ContactInfo(
-                    heading: "Email:",
-                    info: "oyeniyibrighta@gmail.com",
-                  )),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const FittedBox(
-                      child: ContactInfo(
-                    heading: "Mobile Number:",
-                    info: "+2348083763447",
-                  )),
-                  35.height,
-                  Container(
-                      alignment: Alignment.center,
-                      width: double.infinity,
-                      child: const SocialMediaIconsWidget()),
-                  10.height,
-                  const DownloadResume(
-                    showCallButton: true,
-                    centered: true,
-                  )
-                ],
-              ),
+    return Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.all(100),
+          child: Center(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const FittedBox(
+                    child: ContactInfo(
+                  heading: "Email:",
+                  info: "oyeniyibrighta@gmail.com",
+                )),
+                const SizedBox(
+                  height: 15,
+                ),
+                const FittedBox(
+                    child: ContactInfo(
+                  heading: "Mobile Number:",
+                  info: "+2348083763447",
+                )),
+                35.height,
+                Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: const SocialMediaIconsWidget()),
+                10.height,
+                const DownloadResume(
+                  showCallButton: true,
+                  centered: true,
+                )
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
@@ -61,7 +59,7 @@ class ContactInfo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(heading, style: Theme.of(context).textTheme.headlineMedium),
-        Text(
+        SelectableText(
           info,
           style: Theme.of(context).textTheme.displaySmall,
           textAlign: TextAlign.center,
