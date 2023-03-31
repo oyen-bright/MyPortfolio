@@ -12,25 +12,25 @@ class SkillsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: context.theme.colorScheme.onSecondary,
       padding: EdgeInsets.symmetric(horizontal: context.width / 18),
-      height: context.height / 1.5,
+      height: context.height / 1.7,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Flexible(flex: 1, child: Container()),
+          const Spacer(),
           SizedBox(
               width: double.infinity,
               child: Text("Packages",
                   style: context.theme.textTheme.displaySmall)),
           15.height,
           Flexible(
-            flex: 2,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: skills
                   .map((e) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             margin: const EdgeInsets.all(8.0),
@@ -46,7 +46,8 @@ class SkillsSection extends StatelessWidget {
                       ))
                   .toList(),
             ),
-          )
+          ),
+          const Spacer(),
         ],
       ),
     );

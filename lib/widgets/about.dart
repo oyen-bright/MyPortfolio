@@ -10,9 +10,12 @@ class AboutSection extends StatelessWidget {
     return SizedBox(
       height: MediaQuery.of(context).size.height / 2,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 30.0, top: 50),
+            padding: const EdgeInsets.only(
+              bottom: 30.0,
+            ),
             child: SelectableText("About",
                 style: Theme.of(context).textTheme.displaySmall),
           ),

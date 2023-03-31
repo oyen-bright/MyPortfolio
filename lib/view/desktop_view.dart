@@ -104,10 +104,13 @@ class _DesktopViewState extends State<DesktopView> {
                     ProjectsSection(
                       scrollController: scrollController,
                     ),
-                    50.height,
+                    100.height,
                     const Packages(),
+                    120.height,
                     const SkillsSection(),
+                    40.height,
                     const AboutSection(),
+                    40.height,
                     const Fotter(),
                   ],
                 );
