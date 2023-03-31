@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
+import 'package:my_portfolio/widgets/contact_info_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
@@ -138,51 +139,18 @@ class DesktopFotter extends StatelessWidget {
     final messageTextController = TextEditingController();
 
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: context.width / 18),
+        margin: EdgeInsets.symmetric(horizontal: context.width / 4),
         child: Column(
           children: [
-            //   Expanded(
-            //     child: Container(
-            //   margin: const EdgeInsets.all(100),
-            //   child: Center(
-            //     child: Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: const [
-            //         FittedBox(
-            //             child: ContactInfo(
-            //           heading: "Email:",
-            //           info: "atemiehartkelvin@rocketmail.com",
-            //         )),
-            //         SizedBox(
-            //           height: 15,
-            //         ),
-            //         FittedBox(
-            //             child: ContactInfo(
-            //           heading: "Mobile Number:",
-            //           info: "+2349056025603            ",
-            //         )),
-            //         SizedBox(
-            //           height: 15,
-            //         ),
-            //         SocialMediaIconsWidget(),
-            //         SizedBox(
-            //           height: 15,
-            //         ),
-            //         DownloadResume()
-            //       ],
-            //     ),
-            //   ),
-            // )),
-            Row(
+            Column(
               children: [
-                Expanded(
-                    flex: 1,
-                    child: FotterImputContactUsWidget(
-                        formKey: formkey,
-                        nameTextController: nameTextController,
-                        emailTextController: emailTextController,
-                        messageTextController: messageTextController)),
-                const Expanded(child: FotterImageWidget()),
+                FotterImputContactUsWidget(
+                    formKey: formkey,
+                    nameTextController: nameTextController,
+                    emailTextController: emailTextController,
+                    messageTextController: messageTextController),
+                const ContactInformation(),
+                // const Expanded(child: FotterImageWidget()
               ],
             ),
           ],

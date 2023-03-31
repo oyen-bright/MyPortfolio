@@ -209,9 +209,12 @@ class SocialMediaIconsWidget extends StatelessWidget {
 }
 
 class DownloadResume extends StatelessWidget {
-  const DownloadResume({Key? key, this.centered = false}) : super(key: key);
+  const DownloadResume(
+      {Key? key, this.centered = false, this.showCallButton = false})
+      : super(key: key);
 
   final bool centered;
+  final bool showCallButton;
 
   @override
   Widget build(BuildContext context) {
@@ -248,6 +251,15 @@ class DownloadResume extends StatelessWidget {
       }
     }
 
+    void _launchCallClient() async {
+      try {
+        await launchUrl(Uri.parse("tel:+2348083763447"));
+      } catch (e) {
+        // await Clipboard.setData(ClipboardData(text: '$kEmail'));
+        // _emailCopiedToClipboard = true;
+      }
+    }
+
     return Row(
       mainAxisAlignment:
           centered ? MainAxisAlignment.center : MainAxisAlignment.start,
@@ -260,6 +272,25 @@ class DownloadResume extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
               child: Text("Download My Resume"),
             )),
+        Builder(builder: (_) {
+          if (showCallButton) {
+            return Row(
+              children: [
+                10.width,
+                ElevatedButton(
+                    onPressed: () {
+                      _launchCallClient();
+                    },
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
+                      child: Text("Call Me"),
+                    )),
+              ],
+            );
+          }
+          return Container();
+        }),
         10.width,
         ElevatedButton(
             onPressed: () {
