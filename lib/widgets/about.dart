@@ -8,7 +8,8 @@ class AboutSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height / 2,
+      width: double.infinity,
+      height: 500,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -16,8 +17,8 @@ class AboutSection extends StatelessWidget {
             padding: const EdgeInsets.only(
               bottom: 30.0,
             ),
-            child: SelectableText("About",
-                style: Theme.of(context).textTheme.displaySmall),
+            child:
+                Text("About", style: Theme.of(context).textTheme.displaySmall),
           ),
           Padding(
             padding: EdgeInsets.symmetric(

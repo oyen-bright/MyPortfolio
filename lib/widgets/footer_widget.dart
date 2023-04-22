@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
+import 'package:my_portfolio/services/send_email.dart';
 import 'package:my_portfolio/widgets/contact_info_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
@@ -138,8 +140,8 @@ class DesktopFotter extends StatelessWidget {
     final emailTextController = TextEditingController();
     final messageTextController = TextEditingController();
 
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: context.width / 4),
+    return SizedBox(
+        width: double.infinity,
         child: Column(
           children: [
             Column(
@@ -188,6 +190,8 @@ class FotterImputContactUsWidget extends StatelessWidget {
   final TextEditingController messageTextController;
   final bool isRow;
 
+  static bool isSending = false;
+
   @override
   Widget build(BuildContext context) {
     final bigStyle = GoogleFonts.poppins(
@@ -196,6 +200,7 @@ class FotterImputContactUsWidget extends StatelessWidget {
     return Form(
       key: formKey,
       child: Container(
+        width: 700,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: context.theme.colorScheme.onSecondary,
@@ -278,15 +283,33 @@ class FotterImputContactUsWidget extends StatelessWidget {
               controller: messageTextController,
               icon: const FaIcon(FontAwesomeIcons.envelope),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {}
-                  // downloadPdfFromAssets();
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 15),
-                  child: Text("SEND MESSAGE"),
-                )),
+            StatefulBuilder(builder: (context, setState) {
+              return ElevatedButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      setState(() {
+                        isSending = true;
+                      });
+                      final response = await GetIt.instance<Services>()
+                          .sendEmail(
+                              email: emailTextController.text,
+                              name: nameTextController.text,
+                              message: messageTextController.text);
+
+                      setState(() {
+                        isSending = false;
+                      });
+                    }
+                    // downloadPdfFromAssets();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 15),
+                    child: isSending
+                        ? const CircularProgressIndicator()
+                        : const Text("SEND MESSAGE"),
+                  ));
+            }),
           ],
         ),
       ),
@@ -377,27 +400,20 @@ class TextBoxInput extends StatelessWidget {
                   return null;
                 }
               : null,
-          style: context.theme.textTheme.bodyMedium,
           maxLines: maxLenght,
-          textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            prefixIcon: maxLenght == null
+            prefix: maxLenght == null
                 ? Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(right: 10),
                     child: icon,
                   )
                 : null,
             helperText: helperText,
-            focusedBorder: maxLenght != null
-                ? OutlineInputBorder(
-                    borderSide: BorderSide(
-                        color: context.theme.colorScheme.onSecondary))
-                : null,
-            enabledBorder: maxLenght != null
-                ? OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: context.theme.colorScheme.secondary))
-                : null,
+            border: const OutlineInputBorder(),
+            // focusedBorder:
+            //     maxLenght != null ? const OutlineInputBorder() : null,
+            // enabledBorder:
+            //     maxLenght != null ? const OutlineInputBorder() : null,
           ),
         )
       ],

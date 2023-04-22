@@ -10,11 +10,12 @@ class ContactInformation extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.all(100),
+          // margin: const EdgeInsets.all(100),
           child: Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                90.height,
                 const FittedBox(
                     child: ContactInfo(
                   heading: "Email:",
@@ -37,7 +38,8 @@ class ContactInformation extends StatelessWidget {
                 const DownloadResume(
                   showCallButton: true,
                   centered: true,
-                )
+                ),
+                90.height,
               ],
             ),
           ),

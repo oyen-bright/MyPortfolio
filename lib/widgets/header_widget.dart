@@ -58,21 +58,22 @@ class Header extends StatelessWidget {
                               style: Theme.of(context).textTheme.displayMedium,
                             ),
                           ),
-                          const SizedBox(
+                          const Flexible(
                             child: TypeWriterTextWidget(
                               fontSize: 75,
                             ),
                           ),
-                          const SizedBox(
-                            height: 20,
+                          Flexible(
+                            child: Container(
+                                alignment: Alignment.center,
+                                width: double.infinity,
+                                child: const SocialMediaIconsWidget()),
                           ),
-                          Container(
-                              alignment: Alignment.center,
-                              width: double.infinity,
-                              child: const SocialMediaIconsWidget()),
                           10.height,
-                          const DownloadResume(
-                            centered: true,
+                          const Flexible(
+                            child: DownloadResume(
+                              centered: true,
+                            ),
                           )
                         ],
                       )),
@@ -96,11 +97,10 @@ class Header extends StatelessWidget {
                           '"I Am:',
                           style: Theme.of(context).textTheme.displayMedium,
                         ),
-                        const TypeWriterTextWidget(
-                          fontSize: 75,
-                        ),
-                        const SizedBox(
-                          height: 20,
+                        const Flexible(
+                          child: TypeWriterTextWidget(
+                            fontSize: 75,
+                          ),
                         ),
                         const SocialMediaIconsWidget(),
                         10.height,

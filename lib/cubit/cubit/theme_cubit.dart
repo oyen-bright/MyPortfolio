@@ -18,4 +18,12 @@ class ThemeCubit extends Cubit<ThemeState> {
           theme: lightTheme(), currentTheme: CurrentTheme.lightTheme));
     }
   }
+
+  ThemeData getLightTheme() {
+    return lightTheme();
+  }
+
+  ThemeData getDarkTheme() {
+    return darkTheme();
+  }
 }
