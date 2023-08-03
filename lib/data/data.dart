@@ -5,6 +5,14 @@ import 'package:my_portfolio/models/social_media.dart';
 
 import '../models/package.dart';
 
+const List<Map<String, dynamic>> sectionTitles = [
+  {"Title": "Projects", "Icon": FontAwesomeIcons.boxOpen},
+  {"Title": "Packages", "Icon": FontAwesomeIcons.lightbulb},
+  {"Title": "Skills", "Icon": FontAwesomeIcons.laptopCode},
+  {"Title": "About", "Icon": FontAwesomeIcons.info},
+  {"Title": "Contact", "Icon": FontAwesomeIcons.message}
+];
+
 final List<SocialMedia> socialMediaLinks = [
   const SocialMedia(
       toolTip: "Check out my repositries on GitHub",

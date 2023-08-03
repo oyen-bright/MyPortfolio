@@ -11,8 +11,8 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Header extends StatelessWidget {
-  const Header({super.key});
+class HeaderWidget extends StatelessWidget {
+  const HeaderWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

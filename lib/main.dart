@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
-import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/cubit/cubit/project_section_scroll_cubit.dart';
 import 'package:my_portfolio/cubit/cubit/scroll_cubit.dart';
 import 'package:my_portfolio/cubit/cubit/theme_cubit.dart';
-import 'package:my_portfolio/services/send_email.dart';
+import 'package:my_portfolio/services/services.dart';
 import 'package:my_portfolio/view/desktop_view.dart';
-import 'package:my_portfolio/view/mobile_view.dart';
-import 'package:my_portfolio/view/tablet_view.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 void main() async {
@@ -60,13 +57,12 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           final isDarkMode = state.currentTheme == CurrentTheme.darkTheme;
 
-          print(isDarkMode);
           return MaterialApp(
             navigatorObservers: const [
               // FirebaseAnalyticsObserver(analytics: analytics),
             ],
             debugShowCheckedModeBanner: false,
-            title: 'Oyeniyi Bright | Portfolio',
+            title: 'BRINNIXS',
             theme: context.read<ThemeCubit>().getLightTheme(),
             darkTheme: context.read<ThemeCubit>().getDarkTheme(),
             themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.system,
@@ -80,7 +76,7 @@ class MyApp extends StatelessWidget {
                 PointerDeviceKind.unknown
               },
             ),
-            home: const Home(),
+            home: const HomeLoading(),
           );
         },
       ),
@@ -88,16 +84,54 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({super.key});
+class HomeLoading extends StatefulWidget {
+  const HomeLoading({super.key});
+
+  @override
+  State<HomeLoading> createState() => _HomeLoadingState();
+}
+
+class _HomeLoadingState extends State<HomeLoading> {
+  bool showLoadingIndicator = false;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2),
+        () => setState(() => showLoadingIndicator = true));
+  }
 
   @override
   Widget build(BuildContext context) {
-    print(context.theme.scaffoldBackgroundColor);
-    return ScreenTypeLayout.builder(
-      mobile: (BuildContext context) => const MobileView(),
-      tablet: (BuildContext context) => const TabletView(),
-      desktop: (BuildContext context) => const DesktopView(),
-    );
+    if (false) {
+      return Container(
+        color: const Color(0xFFECE8EB), // Us
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AnimatedContainer(
+                  duration: const Duration(seconds: 10),
+                  padding: !showLoadingIndicator
+                      ? null
+                      : const EdgeInsets.only(bottom: 10),
+                  child: Image.asset(
+                    "assets/logos/LOGO.png",
+                    scale: 4,
+                  )),
+              if (showLoadingIndicator)
+                const SizedBox(
+                  width: 200,
+                  child: LinearProgressIndicator(
+                    color: Colors.black,
+                  ),
+                )
+            ],
+          ),
+        ),
+      );
+    }
+
+    return const DesktopView();
   }
 }

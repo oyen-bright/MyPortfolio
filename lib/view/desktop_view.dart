@@ -1,20 +1,9 @@
-import 'package:backdrop/backdrop.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:my_portfolio/cubit/cubit/project_section_scroll_cubit.dart';
-import 'package:my_portfolio/widgets/about.dart';
-import 'package:my_portfolio/widgets/appbar_widget.dart';
-import 'package:my_portfolio/widgets/backdrop_scaffold.dart';
-import 'package:my_portfolio/widgets/backdrop_widget.dart';
-import 'package:my_portfolio/widgets/footer_widget.dart';
+import 'package:my_portfolio/Extentions/screen_size_extention.dart';
+import 'package:my_portfolio/constants.dart';
+import 'package:my_portfolio/widgets/AppBar/custom_appBar.dart';
 import 'package:my_portfolio/widgets/header_widget.dart';
-import 'package:my_portfolio/widgets/packages.dart';
-import 'package:my_portfolio/widgets/projects_widget.dart';
-import 'package:my_portfolio/widgets/skills_widget.dart';
-import 'package:sizedbox_extention/sizedbox_extention.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class DesktopView extends StatefulWidget {
   const DesktopView({super.key});
@@ -24,15 +13,17 @@ class DesktopView extends StatefulWidget {
 }
 
 class _DesktopViewState extends State<DesktopView> {
+  late final ItemScrollController itemScrollController;
+  late final ScrollOffsetController scrollOffsetController;
+  late final ItemPositionsListener itemPositionsListener;
+  late final ScrollOffsetListener scrollOffsetListener;
   @override
   void initState() {
-    scrollController = ScrollController();
-    _focusNode = FocusNode();
-    scrollController.addListener(() {
-      if (scrollController.offset < -0) {
-        // Backdrop.of(context).fling();
-      }
-    });
+    itemScrollController = ItemScrollController();
+    scrollOffsetController = ScrollOffsetController();
+    itemPositionsListener = ItemPositionsListener.create();
+    scrollOffsetListener = ScrollOffsetListener.create();
+    _scrollPositionListener();
     super.initState();
   }
 
@@ -43,153 +34,154 @@ class _DesktopViewState extends State<DesktopView> {
     super.dispose();
   }
 
-  late final ScrollController scrollController;
-
-  late final FocusNode _focusNode;
-
-  void handleKeyEvent(
-    RawKeyEvent event,
-  ) {
-    var offset = scrollController.offset;
-    if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
-      setState(() {
-        if (kReleaseMode) {
-          scrollController.animateTo(offset - 50,
-              duration: const Duration(milliseconds: 100), curve: Curves.ease);
-        } else {
-          scrollController.animateTo(offset - 50,
-              duration: const Duration(milliseconds: 100), curve: Curves.ease);
-        }
-      });
-    } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
-      setState(() {
-        if (kReleaseMode) {
-          scrollController.animateTo(offset + 50,
-              duration: const Duration(milliseconds: 100), curve: Curves.ease);
-        } else {
-          scrollController.animateTo(offset + 50,
-              duration: const Duration(milliseconds: 100), curve: Curves.ease);
-        }
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BackDropScaffold(
-        appBar: customAppBar(context, scrollController: scrollController),
-        scrollController: scrollController,
-        backLayer: const BackDropScreen(),
-        frontLayer: RawKeyboardListener(
-          autofocus: true,
-          focusNode: _focusNode,
-          onKey: handleKeyEvent,
-          child: Scrollbar(
-            thickness: 8,
-            controller: scrollController,
-            trackVisibility: true,
-            thumbVisibility: true,
-            child: BlocBuilder<ProjectSectionScrollCubit,
-                ProjectSectionScrollState>(
-              builder: (context, state) {
-                return ListView(
-                  controller: scrollController,
-                  physics: state.mainCanScrokk
-                      ? const BouncingScrollPhysics()
-                      : const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: [
-                    const Header(),
-                    50.height,
-                    ProjectsSection(
-                      scrollController: scrollController,
-                    ),
-                    100.height,
-                    const Packages(),
-                    120.height,
-                    const SkillsSection(),
-                    40.height,
-                    const AboutSection(),
-                    40.height,
-                    const Fotter(),
-                  ],
-                );
-              },
-            ),
-          ),
-        ));
-  }
-}
-
-class ScrollUpFAB extends StatefulWidget {
-  const ScrollUpFAB(
-      {super.key, required this.scrollController, this.closeFAB = false});
-  final ScrollController scrollController;
-  final bool closeFAB;
-
-  @override
-  State<ScrollUpFAB> createState() => _ScrollUpFABState();
-}
-
-class _ScrollUpFABState extends State<ScrollUpFAB> {
-  bool isVisible = false;
-
-  @override
-  void initState() {
-    final scontroller = widget.scrollController;
-
-    scontroller.addListener(() {
-      if (scontroller.offset >= scontroller.position.maxScrollExtent) {
-        setState(() {
-          isVisible = true;
-        });
-      } else {
-        setState(() {
-          isVisible = false;
-        });
+  void _scrollPositionListener() {
+    itemPositionsListener.itemPositions.addListener(() {
+      final positions = itemPositionsListener.itemPositions.value;
+      for (var position in positions) {
+        if (position.itemLeadingEdge < 0.5 && position.itemTrailingEdge > 0.5) {
+          if (position.index == 1) {
+            setState(() {
+              _enableScroll = true;
+            });
+          }
+        } else {}
       }
     });
-    super.initState();
   }
+
+  late final ScrollController scrollController;
+  late final FocusNode _focusNode;
+
+  bool _showDownArrow = true;
+  bool _enableScroll = false;
+
+  // void handleKeyEvent(
+  //   RawKeyEvent event,
+  // ) {
+  //   var offset = scrollController.offset;
+  //   if (event.logicalKey == LogicalKeyboardKey.arrowUp) {
+  //     setState(() {
+  //       if (kReleaseMode) {
+  //         scrollController.animateTo(offset - 50,
+  //             duration: const Duration(milliseconds: 100), curve: Curves.ease);
+  //       } else {
+  //         scrollController.animateTo(offset - 50,
+  //             duration: const Duration(milliseconds: 100), curve: Curves.ease);
+  //       }
+  //     });
+  //   } else if (event.logicalKey == LogicalKeyboardKey.arrowDown) {
+  //     setState(() {
+  //       if (kReleaseMode) {
+  //         scrollController.animateTo(offset + 50,
+  //             duration: const Duration(milliseconds: 100), curve: Curves.ease);
+  //       } else {
+  //         scrollController.animateTo(offset + 50,
+  //             duration: const Duration(milliseconds: 100), curve: Curves.ease);
+  //       }
+
+  //     });
+  //   }
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: isVisible,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 20, right: 15),
-        child: Builder(builder: (context) {
-          final close = widget.closeFAB;
-          var extendedFAB = FloatingActionButton.extended(
-            onPressed: () {
-              Backdrop.of(context).fling();
-            },
-            icon: FaIcon(
-                close ? FontAwesomeIcons.xmark : FontAwesomeIcons.listCheck),
-            label: close ? const Text("Close") : Container(),
-          );
+    final items = [
+      SizedBox(
+        height: context.height,
+        width: double.infinity,
+        child: const HeaderWidget(),
+      ),
+      Container(
+        height: context.height,
+        width: double.infinity,
+        color: Colors.green,
+      )
+    ];
 
-          if (close) {
-            return extendedFAB;
-          }
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              extendedFAB,
-              15.width,
-              FloatingActionButton(
-                onPressed: () {
-                  final scontroller = widget.scrollController;
-                  scontroller.animateTo(scontroller.position.minScrollExtent,
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.bounceOut);
-                },
-                child: const FaIcon(FontAwesomeIcons.arrowUp),
-              ),
-            ],
-          );
-        }),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: customAppBar(context, showItem: _enableScroll),
+      bottomSheet: GestureDetector(
+        onTap: () {
+          itemScrollController.scrollTo(
+              index: 1,
+              duration: kAnimationDuration,
+              curve: Curves.easeInOutCubic);
+          setState(() {
+            _showDownArrow = false;
+            itemScrollController.scrollTo(
+                index: 1,
+                duration: kAnimationDuration,
+                curve: Curves.easeInOutCubic);
+          });
+        },
+        child: AnimatedContainer(
+          duration: kAnimationDuration,
+          curve: Curves.easeInOutCubic,
+          width: double.infinity,
+          height: !_showDownArrow ? 0 : 80,
+          color: Colors.red.withOpacity(0.001),
+          child: const Icon(Icons.arrow_downward),
+        ),
+      ),
+      body: ScrollConfiguration(
+        behavior: const ScrollBehavior().copyWith(scrollbars: _enableScroll),
+        child: ScrollablePositionedList.builder(
+          physics: _enableScroll ? null : const NeverScrollableScrollPhysics(),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            return items[index];
+          },
+          itemScrollController: itemScrollController,
+          scrollOffsetController: scrollOffsetController,
+          itemPositionsListener: itemPositionsListener,
+          scrollOffsetListener: scrollOffsetListener,
+        ),
       ),
     );
+
+    // return BackDropScaffold(
+    //     appBar: customAppBar(context, scrollController: scrollController),
+    //     scrollController: scrollController,
+    //     backLayer: const BackDropScreen(),
+    //     frontLayer: RawKeyboardListener(
+    //       autofocus: true,
+    //       focusNode: _focusNode,
+    //       onKey: handleKeyEvent,
+    //       child: Scrollbar(
+    //         thickness: 8,
+    //         controller: scrollController,
+    //         trackVisibility: true,
+    //         thumbVisibility: true,
+    //         child: BlocBuilder<ProjectSectionScrollCubit,
+    //             ProjectSectionScrollState>(
+    //           builder: (context, state) {
+    //             return ListView(
+    //               controller: scrollController,
+    //               physics: state.mainCanScrokk
+    //                   ? const BouncingScrollPhysics()
+    //                   : const NeverScrollableScrollPhysics(),
+    //               shrinkWrap: true,
+    //               children: [
+    //                 const Header(),
+    //                 50.height,
+    //                 ProjectsSection(
+    //                   scrollController: scrollController,
+    //                 ),
+    //                 100.height,
+    //                 const Packages(),
+    //                 120.height,
+    //                 const SkillsSection(),
+    //                 40.height,
+    //                 const GithubStats(),
+    //                 40.height,
+    //                 const AboutSection(),
+    //                 40.height,
+    //                 const Fotter(),
+    //               ],
+    //             );
+    //           },
+    //         ),
+    //       ),
+    //     ));
   }
 }
