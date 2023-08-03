@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/constants.dart';
-import 'package:my_portfolio/widgets/AppBar/components/title.dart';
+import 'package:my_portfolio/widgets/appBar/components/title.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
@@ -28,6 +28,7 @@ AppBar customAppBar(BuildContext context,
   }
 
   return AppBar(
+      scrolledUnderElevation: 0,
       backgroundColor: Colors.transparent,
       centerTitle: false,
       actions: !showItem

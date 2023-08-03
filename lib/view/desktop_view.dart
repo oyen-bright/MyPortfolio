@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/constants.dart';
-import 'package:my_portfolio/widgets/AppBar/custom_appBar.dart';
+import 'package:my_portfolio/widgets/appBar/custom_appBar.dart';
 import 'package:my_portfolio/widgets/header_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import 'components/expand_more_widget.dart';
 
 class DesktopView extends StatefulWidget {
   const DesktopView({super.key});
@@ -24,6 +27,8 @@ class _DesktopViewState extends State<DesktopView> {
     itemPositionsListener = ItemPositionsListener.create();
     scrollOffsetListener = ScrollOffsetListener.create();
     _scrollPositionListener();
+    _bounceEffect();
+
     super.initState();
   }
 
@@ -32,6 +37,26 @@ class _DesktopViewState extends State<DesktopView> {
     scrollController.dispose();
     _focusNode.dispose();
     super.dispose();
+  }
+
+  void _bounceEffect() {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      while (_showDownArrow) {
+        await Future.delayed(3.seconds);
+
+        await scrollOffsetController.animateScroll(
+          offset: 30,
+          duration: 200.milliseconds,
+          curve: Curves.easeIn,
+        );
+
+        await scrollOffsetController.animateScroll(
+          offset: -30,
+          duration: 100.milliseconds,
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 
   void _scrollPositionListener() {
@@ -100,12 +125,8 @@ class _DesktopViewState extends State<DesktopView> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: customAppBar(context, showItem: _enableScroll),
-      bottomSheet: GestureDetector(
+      bottomSheet: ExpandMoreWidget(
         onTap: () {
-          itemScrollController.scrollTo(
-              index: 1,
-              duration: kAnimationDuration,
-              curve: Curves.easeInOutCubic);
           setState(() {
             _showDownArrow = false;
             itemScrollController.scrollTo(
@@ -114,14 +135,7 @@ class _DesktopViewState extends State<DesktopView> {
                 curve: Curves.easeInOutCubic);
           });
         },
-        child: AnimatedContainer(
-          duration: kAnimationDuration,
-          curve: Curves.easeInOutCubic,
-          width: double.infinity,
-          height: !_showDownArrow ? 0 : 80,
-          color: Colors.red.withOpacity(0.001),
-          child: const Icon(Icons.arrow_downward),
-        ),
+        showDownArrow: _showDownArrow,
       ),
       body: ScrollConfiguration(
         behavior: const ScrollBehavior().copyWith(scrollbars: _enableScroll),

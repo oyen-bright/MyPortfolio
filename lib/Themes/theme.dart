@@ -7,7 +7,7 @@ ThemeData lightTheme() {
       bottomSheetTheme: BottomSheetThemeData(
           modalBackgroundColor: Colors.transparent,
           elevation: 0,
-          backgroundColor: Colors.black.withOpacity(0.1),
+          backgroundColor: Colors.black.withOpacity(0.03),
           shape: const RoundedRectangleBorder()),
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(shape: const RoundedRectangleBorder()),
