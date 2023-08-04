@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/constants.dart';
+import 'package:my_portfolio/controllers/men_drop_controller.dart';
+import 'package:my_portfolio/view/header/header_widget.dart';
 import 'package:my_portfolio/widgets/appBar/custom_appBar.dart';
-import 'package:my_portfolio/widgets/header_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import 'components/expand_more_widget.dart';
@@ -20,8 +21,11 @@ class _DesktopViewState extends State<DesktopView> {
   late final ScrollOffsetController scrollOffsetController;
   late final ItemPositionsListener itemPositionsListener;
   late final ScrollOffsetListener scrollOffsetListener;
+  late final MenuDropController menuController;
+
   @override
   void initState() {
+    menuController = MenuDropController();
     itemScrollController = ItemScrollController();
     scrollOffsetController = ScrollOffsetController();
     itemPositionsListener = ItemPositionsListener.create();
@@ -35,6 +39,8 @@ class _DesktopViewState extends State<DesktopView> {
   @override
   void dispose() {
     scrollController.dispose();
+    menuController.dispose();
+
     _focusNode.dispose();
     super.dispose();
   }
@@ -43,17 +49,15 @@ class _DesktopViewState extends State<DesktopView> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       while (_showDownArrow) {
         await Future.delayed(3.seconds);
-
         await scrollOffsetController.animateScroll(
           offset: 30,
           duration: 200.milliseconds,
           curve: Curves.easeIn,
         );
-
         await scrollOffsetController.animateScroll(
           offset: -30,
           duration: 100.milliseconds,
-          curve: Curves.easeOut,
+          curve: Curves.bounceOut,
         );
       }
     });
@@ -110,10 +114,9 @@ class _DesktopViewState extends State<DesktopView> {
   @override
   Widget build(BuildContext context) {
     final items = [
-      SizedBox(
-        height: context.height,
+      const SizedBox(
         width: double.infinity,
-        child: const HeaderWidget(),
+        child: HeaderView(),
       ),
       Container(
         height: context.height,
@@ -124,32 +127,53 @@ class _DesktopViewState extends State<DesktopView> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: customAppBar(context, showItem: _enableScroll),
+      appBar: customAppBar(context,
+          showItem: _enableScroll, menuController: menuController),
       bottomSheet: ExpandMoreWidget(
         onTap: () {
           setState(() {
             _showDownArrow = false;
-            itemScrollController.scrollTo(
-                index: 1,
-                duration: kAnimationDuration,
-                curve: Curves.easeInOutCubic);
           });
+          itemScrollController.scrollTo(
+              index: 1,
+              duration: kAnimationDuration,
+              curve: Curves.easeInOutCubic);
         },
         showDownArrow: _showDownArrow,
       ),
-      body: ScrollConfiguration(
-        behavior: const ScrollBehavior().copyWith(scrollbars: _enableScroll),
-        child: ScrollablePositionedList.builder(
-          physics: _enableScroll ? null : const NeverScrollableScrollPhysics(),
-          itemCount: items.length,
-          itemBuilder: (context, index) {
-            return items[index];
-          },
-          itemScrollController: itemScrollController,
-          scrollOffsetController: scrollOffsetController,
-          itemPositionsListener: itemPositionsListener,
-          scrollOffsetListener: scrollOffsetListener,
-        ),
+      body: Stack(
+        children: [
+          GestureDetector(
+            onTap: () => menuController.isOpen ? menuController.close() : null,
+            child: ScrollConfiguration(
+              behavior:
+                  const ScrollBehavior().copyWith(scrollbars: _enableScroll),
+              child: ScrollablePositionedList.builder(
+                physics:
+                    _enableScroll ? null : const NeverScrollableScrollPhysics(),
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  return items[index];
+                },
+                itemScrollController: itemScrollController,
+                scrollOffsetController: scrollOffsetController,
+                itemPositionsListener: itemPositionsListener,
+                scrollOffsetListener: scrollOffsetListener,
+              ),
+            ),
+          ),
+          ValueListenableBuilder(
+              valueListenable: menuController,
+              builder: (context, bool value, _) {
+                return AnimatedContainer(
+                  curve: value ? Curves.bounceOut : Curves.easeOut,
+                  duration: kMenuDropDuration,
+                  width: double.infinity,
+                  color: Colors.green,
+                  height: value ? 300 : 0,
+                );
+              })
+        ],
       ),
     );
 

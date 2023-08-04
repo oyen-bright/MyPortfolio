@@ -12,7 +12,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 void main() async {
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
-    const ScreenBreakpoints(desktop: 800, tablet: 700, watch: 200),
+    const ScreenBreakpoints(tablet: 600, desktop: 950, watch: 300),
   );
 
   WidgetsFlutterBinding.ensureInitialized();

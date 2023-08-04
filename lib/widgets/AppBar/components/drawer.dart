@@ -25,7 +25,7 @@ class MenuDrawer extends StatelessWidget {
                   style: context.theme.textTheme.titleLarge!
                       .copyWith(fontWeight: FontWeight.bold)),
             )),
-        for (final sectionTitle in sectionTitles)
+        for (final sectionTitle in Data.sectionTitles)
           MenuListTile(
             sectionTitle: sectionTitle,
           ),

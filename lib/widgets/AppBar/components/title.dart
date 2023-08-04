@@ -1,6 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/methods/emoji_generator.dart';
+import 'package:my_portfolio/data/data.dart';
 import 'package:random_text_reveal/random_text_reveal.dart';
 
 class AppBarTitle extends StatelessWidget {
@@ -11,6 +11,8 @@ class AppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (_) {
+      final shuffledList = Data.hello_languages;
+
       bool isFinished = true;
       return Row(
         children: [
@@ -23,16 +25,12 @@ class AppBarTitle extends StatelessWidget {
                       children: [
                         // const Text("Bright's  "),
                         AnimatedTextKit(
-                          repeatForever: true,
-                          // onFinished: () =>
-                          //     setState(() => isFinished = false),
-                          animatedTexts: [
-                            FadeAnimatedText('Portefeuille ${emoji()}'),
-                            FadeAnimatedText('文件夹 ${emoji()}'),
-                            FadeAnimatedText('портфолио ${emoji()}'),
-                            FadeAnimatedText('ポートフォリオ ${emoji()}'),
-                          ],
-                        ),
+                            repeatForever: true,
+                            // onFinished: () =>
+                            //     setState(() => isFinished = false),
+                            animatedTexts: shuffledList
+                                .map((e) => FadeAnimatedText(e))
+                                .toList()),
                       ],
                     ));
               }

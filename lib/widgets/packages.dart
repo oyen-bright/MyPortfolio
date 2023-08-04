@@ -27,7 +27,7 @@ class Packages extends StatelessWidget {
             alignment: Alignment.center,
             child: GridView.builder(
                 shrinkWrap: true,
-                itemCount: packages.length,
+                itemCount: Data.packages.length,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: context.width < 1062 ? 3 : 4,
@@ -54,14 +54,14 @@ class Packages extends StatelessWidget {
                             SizedBox(
                                 width: double.infinity,
                                 child: Text(
-                                  packages[index].title,
+                                  Data.packages[index].title,
                                   style: context.theme.textTheme.titleMedium!
                                       .copyWith(fontWeight: FontWeight.bold),
                                 )),
                             10.height,
                             SizedBox(
                                 width: double.infinity,
-                                child: AutoSizeText(packages[index].body,
+                                child: AutoSizeText(Data.packages[index].body,
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 2,
                                     minFontSize: context
@@ -75,7 +75,8 @@ class Packages extends StatelessWidget {
                               TextButton(
                                   child: const Text('More Info'),
                                   onPressed: () async {
-                                    final url = Uri.parse(packages[index].url);
+                                    final url =
+                                        Uri.parse(Data.packages[index].url);
                                     if (await canLaunchUrl(url)) {
                                       await launchUrl(url);
                                     }

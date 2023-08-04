@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/widgets/header_widget.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
+
+import '../view/header/components/contact_bottons_widget.dart';
+import '../view/header/components/social_media_widget.dart';
 
 class ContactInformation extends StatelessWidget {
   const ContactInformation({Key? key}) : super(key: key);

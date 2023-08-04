@@ -151,9 +151,9 @@ Want to shop online ?... Get your own virtual card in your local currency or USD
                       : const NeverScrollableScrollPhysics(),
                   controller: scrollController,
                   scrollDirection: Axis.horizontal,
-                  itemCount: projects.length,
+                  itemCount: Data.projects.length,
                   itemBuilder: (context, index) {
-                    final Uri url = Uri.parse(projects[index].gitlink);
+                    final Uri url = Uri.parse(Data.projects[index].gitlink);
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 10),
@@ -171,7 +171,7 @@ Want to shop online ?... Get your own virtual card in your local currency or USD
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(40),
                                 child: Image.asset(
-                                  projects[index].imageString,
+                                  Data.projects[index].imageString,
                                   fit: BoxFit.cover,
                                 ),
                               ),

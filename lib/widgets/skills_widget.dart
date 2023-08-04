@@ -31,7 +31,7 @@ class SkillsSection extends StatelessWidget {
                 child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              children: skills
+              children: Data.skills
                   .map((e) => Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
 
 class ExpandMoreWidget extends StatefulWidget {
@@ -29,10 +30,14 @@ class _ExpandMoreWidgetState extends State<ExpandMoreWidget> {
           duration: kAnimationDuration,
           curve: Curves.easeInOutCubic,
           width: double.infinity,
-          height: !widget.showDownArrow ? 0 : 80,
+          height: !widget.showDownArrow ? 0 : kExpandButtonHeight,
           child: Icon(
             Icons.expand_more,
-            color: isHovered ? Colors.black : Colors.grey,
+            color: isHovered
+                ? context.theme.brightness == Brightness.dark
+                    ? Colors.white
+                    : Colors.black
+                : Colors.grey,
             size: 50,
           ),
         ),

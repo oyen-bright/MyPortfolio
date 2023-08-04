@@ -1,6 +1,13 @@
 import 'package:flutter_animate/flutter_animate.dart';
 
-final sportifyPlaylist = Uri.parse(
-    "https://open.spotify.com/playlist/7mlItAlgzjdXZty0KlNlr8?si=27f9f96ec6484415");
-
 final kAnimationDuration = 2.seconds;
+final kMenuDropDuration = 500.milliseconds;
+final kTypeWriterSpeed = 200.milliseconds;
+
+const kMarginDesktop = 120.0;
+const kMarginTablet = 50.0;
+const kMarginMobile = 20.0;
+
+const kMinHeight = 740.0;
+
+const kExpandButtonHeight = 80.0;
