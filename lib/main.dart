@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:my_portfolio/cubit/cubit/project_section_scroll_cubit.dart';
 import 'package:my_portfolio/cubit/cubit/scroll_cubit.dart';
 import 'package:my_portfolio/cubit/cubit/theme_cubit.dart';
+import 'package:my_portfolio/routes.dart';
 import 'package:my_portfolio/services/services.dart';
 import 'package:my_portfolio/view/desktop_view.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -57,10 +58,8 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           final isDarkMode = state.currentTheme == CurrentTheme.darkTheme;
 
-          return MaterialApp(
-            navigatorObservers: const [
-              // FirebaseAnalyticsObserver(analytics: analytics),
-            ],
+          return MaterialApp.router(
+            routerConfig: AppRoutes.routes,
             debugShowCheckedModeBanner: false,
             title: 'BRINNIXS',
             theme: context.read<ThemeCubit>().getLightTheme(),
@@ -76,7 +75,7 @@ class MyApp extends StatelessWidget {
                 PointerDeviceKind.unknown
               },
             ),
-            home: const HomeLoading(),
+            // home: const HomeLoading(),
           );
         },
       ),

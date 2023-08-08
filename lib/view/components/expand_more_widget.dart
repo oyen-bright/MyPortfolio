@@ -27,10 +27,10 @@ class _ExpandMoreWidgetState extends State<ExpandMoreWidget> {
           isHovered = false;
         }),
         child: AnimatedContainer(
-          duration: kAnimationDuration,
+          duration: Constants.kAnimationDuration,
           curve: Curves.easeInOutCubic,
           width: double.infinity,
-          height: !widget.showDownArrow ? 0 : kExpandButtonHeight,
+          height: !widget.showDownArrow ? 0 : Constants.kExpandButtonHeight,
           child: Icon(
             Icons.expand_more,
             color: isHovered

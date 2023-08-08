@@ -11,7 +11,7 @@ class AppBarTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Builder(builder: (_) {
-      final shuffledList = Data.hello_languages;
+      final shuffledList = Data.helloLanguages;
 
       bool isFinished = true;
       return Row(

@@ -18,6 +18,8 @@ class HeaderView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool showWorkExperienceDetails = false;
+
     return AnimateGradient(
       primaryBegin: Alignment.topLeft,
       primaryEnd: Alignment.bottomLeft,
@@ -28,7 +30,9 @@ class HeaderView extends StatelessWidget {
       secondaryColors: Data.headerData['background_animation_colors']
           ['secondaryColors'],
       child: Container(
-          height: context.height < kMinHeight ? kMinHeight : context.height,
+          height: context.height < Constants.kMinHeight
+              ? Constants.kMinHeight
+              : context.height,
           decoration: BoxDecoration(
               // color: context.theme.colorScheme.onSecondary,
               image: DecorationImage(
@@ -40,7 +44,7 @@ class HeaderView extends StatelessWidget {
             tablet: (BuildContext context) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: kMarginTablet,
+                  horizontal: Constants.kMarginTablet,
                 ),
                 child: Row(children: [
                   _headerBody(context,
@@ -54,7 +58,7 @@ class HeaderView extends StatelessWidget {
             mobile: (BuildContext context) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: kMarginMobile,
+                  horizontal: Constants.kMarginMobile,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -66,7 +70,7 @@ class HeaderView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         textFontSize: 50,
                         centered: true),
-                    kExpandButtonHeight.height,
+                    Constants.kExpandButtonHeight.height,
                   ],
                 ),
               );
@@ -74,7 +78,7 @@ class HeaderView extends StatelessWidget {
             desktop: (BuildContext context) {
               return Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: kMarginDesktop,
+                  horizontal: Constants.kMarginDesktop,
                 ),
                 child: Row(children: [
                   _headerBody(context,

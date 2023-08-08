@@ -153,7 +153,7 @@ Want to shop online ?... Get your own virtual card in your local currency or USD
                   scrollDirection: Axis.horizontal,
                   itemCount: Data.projects.length,
                   itemBuilder: (context, index) {
-                    final Uri url = Uri.parse(Data.projects[index].gitlink);
+                    final Uri url = Uri.parse(Data.projects[index].gitLink);
                     return Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 20.0, vertical: 10),

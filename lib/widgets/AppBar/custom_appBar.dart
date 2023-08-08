@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/controllers/men_drop_controller.dart';
 import 'package:my_portfolio/widgets/appBar/components/title.dart';
@@ -58,9 +59,13 @@ PreferredSizeWidget customAppBar(BuildContext context,
           ? []
           : [
               for (final sectionTitle in Data.sectionTitles)
-                MenuItem(titleInformation: sectionTitle),
+                Container(
+                    padding: const EdgeInsets.all(10),
+                    color: context.theme.scaffoldBackgroundColor,
+                    child: MenuItem(titleInformation: sectionTitle)),
               55.width,
             ].animate().slide(
-              curve: Curves.easeInOutCubic, duration: kAnimationDuration),
+              curve: Curves.easeInOutCubic,
+              duration: Constants.kAnimationDuration),
       title: const AppBarTitle());
 }

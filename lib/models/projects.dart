@@ -1,7 +1,7 @@
 class Projects {
   String imageString;
   String projectName;
-  String gitlink;
+  String gitLink;
   String playStoreLink;
   String appStoreLink;
   String typeOfProject;
@@ -10,7 +10,9 @@ class Projects {
   Projects(
       {required this.imageString,
       required this.projectName,
-      this.gitlink = "",
+      this.gitLink = "",
       this.appStoreLink = "",
-      this.playStoreLink = "", required this.typeOfProject, required this.projectDescription});
+      this.playStoreLink = "",
+      required this.typeOfProject,
+      required this.projectDescription});
 }

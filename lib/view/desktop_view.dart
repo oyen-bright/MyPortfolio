@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
+import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/controllers/men_drop_controller.dart';
-import 'package:my_portfolio/view/header/header_widget.dart';
 import 'package:my_portfolio/widgets/appBar/custom_appBar.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:sizedbox_extention/sizedbox_extention.dart';
+import 'package:timeline_list/timeline.dart';
+import 'package:timeline_list/timeline_model.dart';
 
 import 'components/expand_more_widget.dart';
 
@@ -114,14 +117,480 @@ class _DesktopViewState extends State<DesktopView> {
   @override
   Widget build(BuildContext context) {
     final items = [
-      const SizedBox(
-        width: double.infinity,
-        child: HeaderView(),
-      ),
-      Container(
+      // const SizedBox(
+      //   width: double.infinity,
+      //   child: HeaderView(),
+      // ),
+      SizedBox(
         height: context.height,
         width: double.infinity,
-        color: Colors.green,
+        child: Center(
+          child: ListView.builder(
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                return [
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        color: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: Constants.kMarginDesktop),
+                        height: context.height,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const sectionheader(),
+                            60.width,
+                            Flexible(
+                              child: Timeline(
+                                children: <TimelineModel>[
+                                  TimelineModel(
+                                    Builder(builder: (context) {
+                                      bool hovered = false;
+                                      return StatefulBuilder(
+                                          builder: (context, setState) {
+                                        return MouseRegion(
+                                          onEnter: (_) =>
+                                              setState(() => hovered = true),
+                                          onExit: (_) =>
+                                              setState(() => hovered = false),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 30, left: 20),
+                                            child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.stretch,
+                                                children: [
+                                                  AnimatedContainer(
+                                                    duration: 2.seconds,
+                                                    child:
+                                                        AnimatedDefaultTextStyle(
+                                                      duration:
+                                                          500.milliseconds,
+                                                      curve:
+                                                          Curves.fastOutSlowIn,
+                                                      style: context.theme
+                                                          .textTheme.titleLarge!
+                                                          .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: context
+                                                                .theme
+                                                                .textTheme
+                                                                .titleLarge!
+                                                                .fontSize! +
+                                                            (hovered ? 10 : 0),
+                                                      ),
+                                                      child: const Text(
+                                                        "Velvet Technologies",
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    "Mobile/Front-End Engineer",
+                                                    style: context.theme
+                                                        .textTheme.titleMedium!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                  Text(
+                                                    "South Africa",
+                                                    style: context.theme
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                  Text(
+                                                    "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                                    style: context.theme
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                  Text(
+                                                    "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                                    style: context.theme
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                  Text(
+                                                    "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                                    style: context.theme
+                                                        .textTheme.bodySmall!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                ]),
+                                          ),
+                                        );
+                                      });
+                                    })
+                                        .animate()
+                                        .slideY(curve: Curves.bounceOut),
+                                    position: TimelineItemPosition.right,
+                                    icon: const Icon(Icons.receipt,
+                                        color: Colors.white),
+                                    iconBackground: Colors.blue,
+                                  ),
+                                  TimelineModel(
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 30, left: 20),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              "Velvet Technologies",
+                                              style: context
+                                                  .theme.textTheme.titleLarge!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Mobile/Front-End Engineer",
+                                              style: context
+                                                  .theme.textTheme.titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "South Africa",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                          ]),
+                                    ),
+                                    position: TimelineItemPosition.right,
+                                    icon: const Icon(Icons.receipt,
+                                        color: Colors.white),
+                                    iconBackground: Colors.blue,
+                                  ),
+                                  TimelineModel(
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 30, left: 20),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              "Velvet Technologies",
+                                              style: context
+                                                  .theme.textTheme.titleLarge!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Mobile/Front-End Engineer",
+                                              style: context
+                                                  .theme.textTheme.titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "South Africa",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                          ]),
+                                    ),
+                                    position: TimelineItemPosition.right,
+                                    icon: const Icon(Icons.receipt,
+                                        color: Colors.white),
+                                    iconBackground: Colors.blue,
+                                  ),
+                                  TimelineModel(
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 30, left: 20),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              "Velvet Technologies",
+                                              style: context
+                                                  .theme.textTheme.titleLarge!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Mobile/Front-End Engineer",
+                                              style: context
+                                                  .theme.textTheme.titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "South Africa",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                          ]),
+                                    ),
+                                    position: TimelineItemPosition.right,
+                                    icon: const Icon(Icons.receipt,
+                                        color: Colors.white),
+                                    iconBackground: Colors.blue,
+                                  ),
+                                  TimelineModel(
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 30, left: 20),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              "Velvet Technologies",
+                                              style: context
+                                                  .theme.textTheme.titleLarge!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Mobile/Front-End Engineer",
+                                              style: context
+                                                  .theme.textTheme.titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "South Africa",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                          ]),
+                                    ),
+                                    position: TimelineItemPosition.right,
+                                    icon: const Icon(Icons.receipt,
+                                        color: Colors.white),
+                                    iconBackground: Colors.blue,
+                                  ),
+                                  TimelineModel(
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 30, left: 20),
+                                      child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.stretch,
+                                          children: [
+                                            Text(
+                                              "Velvet Technologies",
+                                              style: context
+                                                  .theme.textTheme.titleLarge!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Mobile/Front-End Engineer",
+                                              style: context
+                                                  .theme.textTheme.titleMedium!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "South Africa",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                              style: context
+                                                  .theme.textTheme.bodySmall!
+                                                  .copyWith(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                          ]),
+                                    ),
+                                    position: TimelineItemPosition.right,
+                                    icon: const Icon(Icons.receipt,
+                                        color: Colors.white),
+                                    iconBackground: Colors.blue,
+                                  ),
+                                ],
+                                position: TimelinePosition.Left,
+                                iconSize: 40,
+                                lineColor: Colors.blue,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 400,
+                    color: Colors.red,
+                  )
+                ][index];
+              }),
+        ),
       )
     ];
 
@@ -136,7 +605,7 @@ class _DesktopViewState extends State<DesktopView> {
           });
           itemScrollController.scrollTo(
               index: 1,
-              duration: kAnimationDuration,
+              duration: Constants.kAnimationDuration,
               curve: Curves.easeInOutCubic);
         },
         showDownArrow: _showDownArrow,
@@ -167,7 +636,7 @@ class _DesktopViewState extends State<DesktopView> {
               builder: (context, bool value, _) {
                 return AnimatedContainer(
                   curve: value ? Curves.bounceOut : Curves.easeOut,
-                  duration: kMenuDropDuration,
+                  duration: Constants.kMenuDropDuration,
                   width: double.infinity,
                   color: Colors.green,
                   height: value ? 300 : 0,
@@ -221,5 +690,61 @@ class _DesktopViewState extends State<DesktopView> {
     //         ),
     //       ),
     //     ));
+  }
+}
+
+class sectionheader extends StatelessWidget {
+  const sectionheader({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 10),
+                height: 30,
+                width: 5,
+                color: Colors.blue,
+              ),
+              const Text("My work experiences")
+            ],
+          )
+              .animate()
+              .fadeIn() // uses `Animate.defaultDuration`
+              .slideX(), // inherits duration from fadeIn
+          // runs after the above w/new duration
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 10),
+                height: 60,
+                width: 5,
+                color: Colors.red,
+              ),
+              const Text(
+                "Where I've worked",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              )
+            ],
+          )
+              .animate(delay: 1.milliseconds)
+              .fadeIn() // uses `Animate.defaultDuration`
+              .slideX(), //
+        ],
+      ),
+    );
   }
 }

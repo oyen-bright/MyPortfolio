@@ -30,7 +30,7 @@ class TypeWriterTextWidget extends StatelessWidget {
               const TextStyle(),
           child: AnimatedTextKit(
             stopPauseOnTap: true,
-            pause: kAnimationDuration,
+            pause: Constants.kAnimationDuration,
             displayFullTextOnTap: true,
             repeatForever: true,
             animatedTexts: (Data.headerData['subtitle'] as List<String>)
@@ -38,7 +38,7 @@ class TypeWriterTextWidget extends StatelessWidget {
                   (e) => TypewriterAnimatedText(
                     e,
                     textAlign: textAlign,
-                    speed: kTypeWriterSpeed,
+                    speed: Constants.kTypeWriterSpeed,
                   ),
                 )
                 .toList(),

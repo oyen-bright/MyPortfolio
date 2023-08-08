@@ -7,23 +7,24 @@ part 'theme_state.dart';
 class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit()
       : super(ThemeState(
-            theme: lightTheme(), currentTheme: CurrentTheme.lightTheme));
+            theme: AppTheme.lightTheme(),
+            currentTheme: CurrentTheme.lightTheme));
 
   void switchTheme() {
     if (state.currentTheme == CurrentTheme.lightTheme) {
-      emit(
-          ThemeState(theme: darkTheme(), currentTheme: CurrentTheme.darkTheme));
+      emit(ThemeState(
+          theme: AppTheme.darkTheme(), currentTheme: CurrentTheme.darkTheme));
     } else {
       emit(ThemeState(
-          theme: lightTheme(), currentTheme: CurrentTheme.lightTheme));
+          theme: AppTheme.lightTheme(), currentTheme: CurrentTheme.lightTheme));
     }
   }
 
   ThemeData getLightTheme() {
-    return lightTheme();
+    return AppTheme.lightTheme();
   }
 
   ThemeData getDarkTheme() {
-    return darkTheme();
+    return AppTheme.darkTheme();
   }
 }
