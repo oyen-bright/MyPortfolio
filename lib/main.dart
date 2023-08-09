@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
             title: 'BRINNIXS',
             theme: context.read<ThemeCubit>().getLightTheme(),
             darkTheme: context.read<ThemeCubit>().getDarkTheme(),
-            themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.system,
+            themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
             scrollBehavior: const MaterialScrollBehavior().copyWith(
               physics: const BouncingScrollPhysics(),
               dragDevices: {

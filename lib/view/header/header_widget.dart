@@ -108,7 +108,9 @@ class HeaderView extends StatelessWidget {
               centerText: centered,
             ),
             20.height,
-            const SocialMediaIconsWidget(),
+            SocialMediaIconsWidget(
+              socialMediaLinks: Data.socialMediaLinks,
+            ),
             20.height,
             DownloadResume(
               centered: centered,

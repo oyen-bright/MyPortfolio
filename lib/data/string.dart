@@ -36,6 +36,18 @@ class Data {
         color: Colors.green,
         link:
             "https://open.spotify.com/playlist/7mlItAlgzjdXZty0KlNlr8?si=27f9f96ec6484415"),
+    const SocialMedia(
+        toolTip: "Check out my Twitter Feed",
+        name: FontAwesomeIcons.soundcloud,
+        color: Colors.green,
+        link:
+            "https://open.spotify.com/playlist/7mlItAlgzjdXZty0KlNlr8?si=27f9f96ec6484415"),
+    const SocialMedia(
+        toolTip: "Check out my Twitter Feed",
+        name: FontAwesomeIcons.youtube,
+        color: Colors.green,
+        link:
+            "https://open.spotify.com/playlist/7mlItAlgzjdXZty0KlNlr8?si=27f9f96ec6484415"),
   ];
 
   static Map headerData = {

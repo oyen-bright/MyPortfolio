@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/data/data.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
 import '../view/header/components/contact_bottons_widget.dart';
@@ -33,9 +34,12 @@ class ContactInformation extends StatelessWidget {
                 )),
                 35.height,
                 Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    child: const SocialMediaIconsWidget()),
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  child: SocialMediaIconsWidget(
+                    socialMediaLinks: Data.socialMediaLinks,
+                  ),
+                ),
                 10.height,
                 const DownloadResume(
                   showCallButton: true,

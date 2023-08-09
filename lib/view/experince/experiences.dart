@@ -65,8 +65,8 @@ class _ExperiencesState extends State<Experiences> {
         quarterTurns: 2,
         child: Container(
           height: context.height < Constants.kMinHeight
-              ? (Constants.kMinHeight) / 2
-              : context.height / 2,
+              ? (Constants.kMinHeight)
+              : context.height / 1.5,
           decoration: BoxDecoration(
               // color: context.theme.colorScheme.onSecondary,
               image: DecorationImage(
@@ -79,10 +79,21 @@ class _ExperiencesState extends State<Experiences> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Spacer(),
+                const Spacer(
+                  flex: 2,
+                ),
                 Text(
                   "Lets Work together.",
-                  style: context.theme.textTheme.displayMedium,
+                  textAlign: TextAlign.center,
+                  style: context.theme.textTheme.displayMedium!.copyWith(
+                    shadows: [
+                      Shadow(
+                        color: Colors.black.withOpacity(0.2), // Shadow color
+                        blurRadius: 5, // Shadow blur radius
+                        offset: const Offset(0, 2), // Shadow offset
+                      ),
+                    ],
+                  ),
                 ),
                 40.height,
                 Container(
@@ -98,7 +109,9 @@ class _ExperiencesState extends State<Experiences> {
                 30.height,
                 const AnimatedButton(),
                 30.height,
-                const SocialMediaIconsWidget(),
+                SocialMediaIconsWidget(
+                  socialMediaLinks: Data.socialMediaLinks,
+                ),
                 const Spacer(),
                 Container(
                     padding: const EdgeInsets.symmetric(
@@ -217,9 +230,12 @@ class ExperienceTimeline extends StatefulWidget {
 
 class _ExperienceTimelineState extends State<ExperienceTimeline> {
   bool canScroll = false;
+  late final ScrollController _scrollController;
+
   @override
   void initState() {
     super.initState();
+    _scrollController = ScrollController();
     widget.itemPositionsListener.itemPositions.addListener(() {
       final positions = widget.itemPositionsListener.itemPositions.value;
       for (var position in positions) {
@@ -241,6 +257,12 @@ class _ExperienceTimelineState extends State<ExperienceTimeline> {
         }
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -276,109 +298,137 @@ class _ExperienceTimelineState extends State<ExperienceTimeline> {
       }
     ];
     return Flexible(
-      child: Timeline(
-        physics: canScroll ? null : const NeverScrollableScrollPhysics(),
-        children: data
-            .map(
-              (e) => TimelineModel(
-                Builder(builder: (context) {
-                  bool hovered = data.indexOf(e) == 0 ? true : false;
-                  return StatefulBuilder(builder: (context, setState) {
-                    return MouseRegion(
-                      onEnter: (_) => setState(() => hovered = true),
-                      onExit: (_) => setState(() => hovered = false),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 30, left: 20),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              AnimatedContainer(
-                                duration: 2.seconds,
-                                child: AnimatedDefaultTextStyle(
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+        child: Timeline(
+          controller: _scrollController,
+          physics: canScroll ? null : const NeverScrollableScrollPhysics(),
+          children: data
+              .map(
+                (e) => TimelineModel(
+                  Builder(builder: (context) {
+                    bool hovered = data.indexOf(e) == 0 ? true : false;
+                    return StatefulBuilder(builder: (context, setState) {
+                      return MouseRegion(
+                        onEnter: (_) => setState(() {
+                          hovered = true;
+                        }),
+                        onExit: (_) => setState(() => hovered = false),
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 30, left: 20),
+                          child: VisibilityDetector(
+                            onVisibilityChanged: (info) {
+                              var visibleFraction = info.visibleFraction;
+
+                              if (visibleFraction < 1.0 &&
+                                  data.indexOf(e) != data.length - 1) {
+                                _scrollController.animateTo(
+                                  _scrollController.position
+                                      .maxScrollExtent, // Scroll to the bottom
                                   duration: 500.milliseconds,
-                                  curve: Curves.fastOutSlowIn,
-                                  style: hovered
-                                      ? context.theme.textTheme.headlineMedium!
-                                      : context.theme.textTheme.titleLarge!,
-                                  child: const Text(
-                                    "Velvet Technologies",
-                                  ),
-                                ),
-                              ),
-                              2.height,
-                              Text(
-                                "Mobile/Front-End Engineer",
-                                style: hovered
-                                    ? context.theme.textTheme.titleLarge
-                                    : context.theme.textTheme.titleMedium!,
-                              ),
-                              2.height,
-                              Text(
-                                "South Africa",
-                                style: hovered
-                                    ? context.theme.textTheme.bodyLarge
-                                    : context.theme.textTheme.bodySmall!,
-                              ),
-                              2.height,
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
+                                  curve: Curves.bounceIn,
+                                );
+                              }
+                            },
+                            key: Key(data.indexOf(e).toString()),
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  const Icon(Icons.arrow_right_outlined),
-                                  Flexible(
-                                    child: Text(
-                                        "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
-                                        style: hovered
-                                            ? context.theme.textTheme.bodyMedium
-                                            : context
-                                                .theme.textTheme.bodySmall!),
+                                  AnimatedContainer(
+                                    duration: 2.seconds,
+                                    child: AnimatedDefaultTextStyle(
+                                      duration: 500.milliseconds,
+                                      curve: Curves.fastOutSlowIn,
+                                      style: hovered
+                                          ? context
+                                              .theme.textTheme.headlineMedium!
+                                          : context.theme.textTheme.titleLarge!,
+                                      child: const Text(
+                                        "Velvet Technologies",
+                                      ),
+                                    ),
                                   ),
-                                ],
-                              ),
-                              2.height,
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  const Icon(Icons.arrow_right_outlined),
-                                  Flexible(
-                                    child: Text(
-                                        "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
-                                        style: hovered
-                                            ? context.theme.textTheme.bodyMedium
-                                            : context
-                                                .theme.textTheme.bodySmall!),
+                                  2.height,
+                                  Text(
+                                    "Mobile/Front-End Engineer",
+                                    style: hovered
+                                        ? context.theme.textTheme.titleLarge
+                                        : context.theme.textTheme.titleMedium!,
                                   ),
-                                ],
-                              ),
-                              2.height,
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  const Icon(Icons.arrow_right_outlined),
-                                  Flexible(
-                                    child: Text(
-                                        "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
-                                        style: hovered
-                                            ? context.theme.textTheme.bodyMedium
-                                            : context
-                                                .theme.textTheme.bodySmall!),
+                                  2.height,
+                                  Text(
+                                    "South Africa",
+                                    style: hovered
+                                        ? context.theme.textTheme.bodyLarge
+                                        : context.theme.textTheme.bodySmall!,
                                   ),
-                                ],
-                              ),
-                            ]),
-                      ),
-                    );
-                  });
-                }).animate().slideY(curve: Curves.bounceOut),
-                position: TimelineItemPosition.right,
-                icon: const Icon(Icons.receipt, color: Colors.white),
-                iconBackground: Colors.blue,
-              ),
-            )
-            .toList(),
-        position: TimelinePosition.Left,
-        iconSize: 40,
-        lineColor: Colors.blue,
+                                  2.height,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Icon(Icons.arrow_right_outlined),
+                                      Flexible(
+                                        child: Text(
+                                            "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                            style: hovered
+                                                ? context
+                                                    .theme.textTheme.bodyMedium
+                                                : context.theme.textTheme
+                                                    .bodySmall!),
+                                      ),
+                                    ],
+                                  ),
+                                  2.height,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Icon(Icons.arrow_right_outlined),
+                                      Flexible(
+                                        child: Text(
+                                            "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                            style: hovered
+                                                ? context
+                                                    .theme.textTheme.bodyMedium
+                                                : context.theme.textTheme
+                                                    .bodySmall!),
+                                      ),
+                                    ],
+                                  ),
+                                  2.height,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      const Icon(Icons.arrow_right_outlined),
+                                      Flexible(
+                                        child: Text(
+                                            "Collaborated with a team to deliver multi-platform applications for iOS and Android, focusing on creating captivating user interfaces and seamless user experiences for the Play Store and App Store.",
+                                            style: hovered
+                                                ? context
+                                                    .theme.textTheme.bodyMedium
+                                                : context.theme.textTheme
+                                                    .bodySmall!),
+                                      ),
+                                    ],
+                                  ),
+                                ].animate(
+                                    interval: 3.seconds,
+                                    effects: [const FadeEffect()])),
+                          ),
+                        ),
+                      );
+                    });
+                  }).animate().slideY(curve: Curves.bounceOut),
+                  position: TimelineItemPosition.right,
+                  icon: const Icon(Icons.receipt, color: Colors.white),
+                  iconBackground: Colors.blue,
+                ),
+              )
+              .toList(),
+          position: TimelinePosition.Left,
+          iconSize: 40,
+          lineColor: Colors.blue,
+        ),
       ),
     );
   }
