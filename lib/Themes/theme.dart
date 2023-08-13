@@ -74,6 +74,13 @@ class AppTheme {
       fontWeight: _bold,
       fontStyle: FontStyle.normal,
     ),
+    headlineLarge: const TextStyle(
+      // fontFamily: StringConst.VISUELT_PRO,
+      fontSize: 44,
+      color: AppColors.black,
+      fontWeight: _bold,
+      fontStyle: FontStyle.normal,
+    ),
     headlineMedium: const TextStyle(
       // fontFamily: StringConst.VISUELT_PRO,
       fontSize: 34,
@@ -111,13 +118,13 @@ class AppTheme {
       // fontFamily: StringConst.VISUELT_PRO,
       fontSize: 16,
       color: AppColors.secondaryColor,
-      fontWeight: _light,
+      fontWeight: _regular,
       fontStyle: FontStyle.normal,
     ),
     bodyMedium: GoogleFonts.roboto(
       fontSize: 15,
       color: AppColors.secondaryColor,
-      fontWeight: _light,
+      fontWeight: _regular,
       fontStyle: FontStyle.normal,
     ),
     labelLarge: GoogleFonts.roboto(
@@ -130,7 +137,7 @@ class AppTheme {
       // fontFamily: StringConst.VISUELT_PRO,
       fontSize: 14,
       color: AppColors.black,
-      fontWeight: _regular,
+      fontWeight: _light,
       fontStyle: FontStyle.normal,
     ),
   );

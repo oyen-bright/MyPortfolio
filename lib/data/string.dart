@@ -73,6 +73,14 @@ class Data {
     }
   };
 
+  static Map footerData = {
+    'title': "Lets Work together.",
+    'socialMediaData': socialMediaLinks,
+    'subtitle':
+        "Whether you have an idea for a project or just want to chat, feel free to shoot me an email!",
+    'copyWriteText': "© Brinnixs 2020"
+  };
+
   static Map personalLink = {
     'email': 'oyeniyibright@gmail.com',
     'image': "assets/ppp2.png",

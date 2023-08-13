@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
@@ -7,6 +8,8 @@ import 'package:my_portfolio/controllers/men_drop_controller.dart';
 import 'package:my_portfolio/view/components/expand_more_widget.dart';
 import 'package:my_portfolio/widgets/AppBar/custom_appBar.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+
+import '../widgets/footer/footer.dart';
 
 class ViewWrapper extends StatefulWidget {
   const ViewWrapper(
@@ -27,6 +30,7 @@ class _ViewWrapperState extends State<ViewWrapper> {
 
   @override
   void initState() {
+    widget.items.add(const Footer());
     menuController = MenuDropController();
     itemScrollController = ItemScrollController();
     scrollOffsetController = ScrollOffsetController();
@@ -83,6 +87,16 @@ class _ViewWrapperState extends State<ViewWrapper> {
     });
   }
 
+  int getCurrentIndex() {
+    final positions = itemPositionsListener.itemPositions.value;
+    for (var position in positions) {
+      if (position.itemLeadingEdge < 0.5 && position.itemTrailingEdge > 0.5) {
+        return position.index;
+      }
+    }
+    return 0; // Return -1 if no valid index is found
+  }
+
   void _scrollPage(int index) {
     final currentPosition = itemPositionsListener.itemPositions.value
         .where((position) =>
@@ -101,6 +115,8 @@ class _ViewWrapperState extends State<ViewWrapper> {
 
   late final ScrollController scrollController;
   late final FocusNode _focusNode;
+
+  Offset cursorPosition = const Offset(0, 0);
 
   bool _showDownArrow = true;
   bool _enableScroll = false;
@@ -154,6 +170,7 @@ class _ViewWrapperState extends State<ViewWrapper> {
                   height: value ? 300 : 0,
                 );
               }),
+
           Align(
               alignment: Alignment.centerLeft,
               child: HoverButton(
@@ -168,7 +185,22 @@ class _ViewWrapperState extends State<ViewWrapper> {
                 text: "Page Down",
                 onPressed: () => _scrollPage(1),
                 iconData: Icons.keyboard_arrow_down,
-              ))
+              )),
+          // Positioned(
+          //   left: cursorPosition.dx - 10,
+          //   top: cursorPosition.dy - 10,
+          //   child: IgnorePointer(
+          //     child: Container(
+          //       width: 20,
+          //       height: 20,
+          //       decoration: BoxDecoration(
+          //         border: Border.all(),
+          //         shape: BoxShape.circle,
+          //         color: Colors.transparent,
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -250,23 +282,26 @@ class _HoverButtonState extends State<HoverButton> {
       curve: Curves.easeIn,
       opacity: isHovered ? 1 : 0,
       duration: 200.milliseconds,
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          color: context.theme.scaffoldBackgroundColor,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2), // Shadow color
-              blurRadius: 5, // Shadow blur radius
-              offset: const Offset(0, 2), // Shadow offset
+      child: GestureDetector(
+        onTap: widget.onPressed,
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: context.theme.scaffoldBackgroundColor,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2), // Shadow color
+                blurRadius: 5, // Shadow blur radius
+                offset: const Offset(0, 2), // Shadow offset
+              ),
+            ],
+          ),
+          child: Text(
+            widget.text!,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
             ),
-          ],
-        ),
-        child: Text(
-          widget.text!,
-          style: const TextStyle(
-            fontWeight: FontWeight.bold,
           ),
         ),
       ),
