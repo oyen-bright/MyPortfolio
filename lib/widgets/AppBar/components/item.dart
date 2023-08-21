@@ -27,7 +27,7 @@ class _MenuItemState extends State<MenuItem> {
           style: context.theme.textTheme.bodyMedium!.copyWith(
               fontSize: fontSize,
               fontWeight:
-                  onHoverSize == 0 ? FontWeight.normal : FontWeight.normal),
+                  onHoverSize == 0 ? FontWeight.normal : FontWeight.bold),
           child: Text(
             widget.titleInformation["Title"],
           ),

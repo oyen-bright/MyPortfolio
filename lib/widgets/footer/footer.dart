@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/data/data.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
 import '../../constants.dart';
@@ -15,6 +16,18 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late final BoxFit boxFit;
+
+    final deviceType = getDeviceType(MediaQuery.of(context).size);
+
+    switch (deviceType) {
+      case DeviceScreenType.mobile:
+        boxFit = BoxFit.fitHeight;
+        break;
+      default:
+        boxFit = BoxFit.fitWidth;
+        break;
+    }
     return RotatedBox(
       quarterTurns: 2,
       child: Container(

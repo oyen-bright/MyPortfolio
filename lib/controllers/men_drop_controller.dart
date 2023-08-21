@@ -1,22 +1,40 @@
 import 'package:flutter/material.dart';
 
-class MenuDropController extends ValueNotifier<bool> {
-  MenuDropController({bool? state}) : super(state ?? false);
+enum MenuStatus {
+  open,
+  closed,
+  blur,
+}
 
-  bool get isOpen => value;
+class MenuDropController extends ValueNotifier<MenuStatus> {
+  MenuDropController({MenuStatus? state}) : super(state ?? MenuStatus.closed);
+
+  bool get isOpen => value == MenuStatus.open;
 
   void open() {
-    value = true;
+    value = MenuStatus.open;
     notifyListeners();
   }
 
   void close() {
-    value = false;
+    value = MenuStatus.closed;
     notifyListeners();
   }
 
+  void blur(bool blu) {
+    if (blu) {
+      if (value != MenuStatus.blur) {
+        value = MenuStatus.blur;
+        notifyListeners();
+      }
+    } else if (value != MenuStatus.closed) {
+      value = MenuStatus.closed;
+      notifyListeners();
+    }
+  }
+
   void toggle() {
-    value = !value;
+    value = value == MenuStatus.open ? MenuStatus.closed : MenuStatus.open;
     notifyListeners();
   }
 }

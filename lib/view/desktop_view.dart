@@ -631,17 +631,17 @@ class _DesktopViewState extends State<DesktopView> {
               ),
             ),
           ),
-          ValueListenableBuilder(
-              valueListenable: menuController,
-              builder: (context, bool value, _) {
-                return AnimatedContainer(
-                  curve: value ? Curves.bounceOut : Curves.easeOut,
-                  duration: Constants.kMenuDropDuration,
-                  width: double.infinity,
-                  color: Colors.green,
-                  height: value ? 300 : 0,
-                );
-              })
+          // ValueListenableBuilder(
+          //     valueListenable: menuController,
+          //     builder: (context, MenuStatus value, _) {
+          //       return AnimatedContainer(
+          //         curve: value ? Curves.bounceOut : Curves.easeOut,
+          //         duration: Constants.kMenuDropDuration,
+          //         width: double.infinity,
+          //         color: Colors.green,
+          //         height: value ? 300 : 0,
+          //       );
+          //     })
         ],
       ),
     );

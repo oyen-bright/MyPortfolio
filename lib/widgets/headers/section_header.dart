@@ -3,6 +3,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
+import 'package:sizedbox_extention/sizedbox_extention.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class SectionHeader extends StatefulWidget {
@@ -55,6 +56,7 @@ class _SectionHeaderState extends State<SectionHeader>
                   width: 5,
                   color: widget.subtitleBarBackgroundColor,
                 ),
+                40.width,
                 Text(
                   widget.subtitle,
                   style: context.theme.textTheme.bodyLarge,
@@ -74,6 +76,7 @@ class _SectionHeaderState extends State<SectionHeader>
                   width: 5,
                   color: widget.titleBarBackgroundColor,
                 ),
+                40.width,
                 if (animateText)
                   DefaultTextStyle(
                     style: context.theme.textTheme.headlineMedium!,

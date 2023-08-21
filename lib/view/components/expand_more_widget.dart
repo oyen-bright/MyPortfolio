@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/Extentions/theme_extention.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/constants.dart';
 
 class ExpandMoreWidget extends StatefulWidget {
@@ -13,8 +13,39 @@ class ExpandMoreWidget extends StatefulWidget {
   State<ExpandMoreWidget> createState() => _ExpandMoreWidgetState();
 }
 
-class _ExpandMoreWidgetState extends State<ExpandMoreWidget> {
+class _ExpandMoreWidgetState extends State<ExpandMoreWidget>
+    with SingleTickerProviderStateMixin {
   bool isHovered = false;
+
+  late final AnimationController _controller;
+  late final Animation<Offset> _animation;
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this, duration: 4.seconds);
+
+    _animation = Tween<Offset>(
+            begin: const Offset(0, 0), end: const Offset(0, -1))
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut))
+      ..addStatusListener((AnimationStatus status) {
+        if (status == AnimationStatus.completed) {
+          _controller.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _controller.forward();
+        }
+      });
+
+    _controller.forward();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -30,17 +61,67 @@ class _ExpandMoreWidgetState extends State<ExpandMoreWidget> {
           duration: Constants.kAnimationDuration,
           curve: Curves.easeInOutCubic,
           width: double.infinity,
-          height: !widget.showDownArrow ? 0 : Constants.kExpandButtonHeight,
-          child: Icon(
-            Icons.expand_more,
-            color: isHovered
-                ? context.theme.brightness == Brightness.dark
-                    ? Colors.white
-                    : Colors.black
-                : Colors.grey,
-            size: 50,
+          height: !widget.showDownArrow
+              ? 0
+              : Constants.kExpandButtonHeight +
+                  (_animation.value.dy.abs() * 10), // Adjust the calculation
+          child: SlideTransition(
+            position: _animation,
+            child: Image.asset(
+              "assets/images/ios-down-arrow.png",
+              color: Colors.green,
+            ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AnimatedDownwardArrow extends StatefulWidget {
+  const AnimatedDownwardArrow({super.key});
+
+  @override
+  State<AnimatedDownwardArrow> createState() => _AnimatedDownwardArrowState();
+}
+
+class _AnimatedDownwardArrowState extends State<AnimatedDownwardArrow>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<Offset> _animation;
+  @override
+  void initState() {
+    _controller = AnimationController(vsync: this, duration: 4.seconds);
+
+    _animation = Tween<Offset>(
+            begin: const Offset(0, 0), end: const Offset(0, -1))
+        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut))
+      ..addStatusListener((AnimationStatus status) {
+        if (status == AnimationStatus.completed) {
+          _controller.reverse();
+        } else if (status == AnimationStatus.dismissed) {
+          _controller.forward();
+        }
+      });
+
+    _controller.forward();
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SlideTransition(
+      position: _animation,
+      child: Image.asset(
+        "assets/images/ios-down-arrow.png",
       ),
     );
   }

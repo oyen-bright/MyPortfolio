@@ -1,13 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/controllers/men_drop_controller.dart';
-import 'package:my_portfolio/view/components/expand_more_widget.dart';
 import 'package:my_portfolio/widgets/AppBar/custom_appBar.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:sizedbox_extention/sizedbox_extention.dart';
 
 import '../widgets/footer/footer.dart';
 
@@ -30,7 +32,6 @@ class _ViewWrapperState extends State<ViewWrapper> {
 
   @override
   void initState() {
-    widget.items.add(const Footer());
     menuController = MenuDropController();
     itemScrollController = ItemScrollController();
     scrollOffsetController = ScrollOffsetController();
@@ -118,26 +119,34 @@ class _ViewWrapperState extends State<ViewWrapper> {
 
   Offset cursorPosition = const Offset(0, 0);
 
-  bool _showDownArrow = true;
-  bool _enableScroll = false;
+  final bool _showDownArrow = true;
+  bool _enableScroll = true;
+  // bool _enableScroll = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    widget.items.add(const Footer());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: customAppBar(context,
           showItem: _enableScroll, menuController: menuController),
-      bottomSheet: ExpandMoreWidget(
-        onTap: () {
-          setState(() {
-            _showDownArrow = false;
-          });
-          itemScrollController.scrollTo(
-              index: 1,
-              duration: Constants.kAnimationDuration,
-              curve: Curves.easeInOutCubic);
-        },
-        showDownArrow: _showDownArrow,
-      ),
+      // bottomSheet: ExpandMoreWidget(
+      //   onTap: () {
+      //     setState(() {
+      //       _showDownArrow = false;
+      //     });
+      //     itemScrollController.scrollTo(
+      //         index: 1,
+      //         duration: Constants.kAnimationDuration,
+      //         curve: Curves.easeInOutCubic);
+      //   },
+      //   showDownArrow: _showDownArrow,
+      // ),
       body: Stack(
         children: [
           GestureDetector(
@@ -159,33 +168,65 @@ class _ViewWrapperState extends State<ViewWrapper> {
               ),
             ),
           ),
+          // Align(
+          //     alignment: Alignment.centerLeft,
+          //     child: HoverButton(
+          //       text: "Page Up",
+          //       onPressed: () => _scrollPage(-1),
+          //       iconData: Icons.keyboard_arrow_up,
+          //     )),
+          // Align(
+          //     alignment: Alignment.centerRight,
+          //     child: HoverButton(
+          //       position: TextPosition.beforeIcon,
+          //       text: "Page Down",
+          //       onPressed: () => _scrollPage(1),
+          //       iconData: Icons.keyboard_arrow_down,
+          //     )),
+
+          ValueListenableBuilder(
+            valueListenable: menuController,
+            builder: (BuildContext context, MenuStatus value, Widget? child) {
+              if (value == MenuStatus.open || value == MenuStatus.blur) {
+                return Positioned.fill(
+                  child: GestureDetector(
+                    onTap: () => menuController.close(),
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: Container(
+                        color: Colors.white.withOpacity(0.5),
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return Container();
+            },
+          ),
+
           ValueListenableBuilder(
               valueListenable: menuController,
-              builder: (context, bool value, _) {
+              builder: (context, MenuStatus value, _) {
                 return AnimatedContainer(
-                  curve: value ? Curves.bounceOut : Curves.easeOut,
+                  curve: value == MenuStatus.open
+                      ? Curves.bounceOut
+                      : Curves.easeOut,
                   duration: Constants.kMenuDropDuration,
                   width: double.infinity,
-                  color: Colors.green,
-                  height: value ? 300 : 0,
+                  color: context.theme.scaffoldBackgroundColor,
+                  height: value == MenuStatus.open ? 300 : 0,
+                  child: OverflowBox(
+                    maxHeight: 300,
+                    child: Column(
+                      children: [
+                        kToolbarHeight.height,
+                        const Text("itsahaman")
+                      ],
+                    ),
+                  ),
                 );
               }),
 
-          Align(
-              alignment: Alignment.centerLeft,
-              child: HoverButton(
-                text: "Page Up",
-                onPressed: () => _scrollPage(-1),
-                iconData: Icons.keyboard_arrow_up,
-              )),
-          Align(
-              alignment: Alignment.centerRight,
-              child: HoverButton(
-                position: TextPosition.beforeIcon,
-                text: "Page Down",
-                onPressed: () => _scrollPage(1),
-                iconData: Icons.keyboard_arrow_down,
-              )),
           // Positioned(
           //   left: cursorPosition.dx - 10,
           //   top: cursorPosition.dy - 10,

@@ -18,40 +18,54 @@ class HeaderWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: context.height < Constants.kMinHeight
-            ? Constants.kMinHeight
-            : context.height,
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.topCenter,
-                opacity: 0.3,
-                image: AssetImage(Data.headerData['background_image']))),
-        child: ScreenTypeLayout.builder(
-          tablet: (BuildContext context) {
-            return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Constants.kMarginTablet,
-                ),
-                child: tablet ?? web);
-          },
-          mobile: (BuildContext context) {
-            return Padding(
+    return ScreenTypeLayout.builder(
+      tablet: (BuildContext context) {
+        return _buildBackgroudImage(
+          context,
+          child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Constants.kMarginTablet,
+              ),
+              child: tablet ?? web),
+        );
+      },
+      mobile: (BuildContext context) {
+        return _buildBackgroudImage(
+          context,
+          boxFit: BoxFit.fitHeight,
+          child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: Constants.kMarginMobile,
               ),
-              child: mobile ?? web,
-            );
-          },
-          desktop: (BuildContext context) {
-            return Padding(
+              child: tablet ?? web),
+        );
+      },
+      desktop: (BuildContext context) {
+        return _buildBackgroudImage(
+          context,
+          child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: Constants.kMarginDesktop,
               ),
-              child: web,
-            );
-          },
-        ));
+              child: tablet ?? web),
+        );
+      },
+    );
+  }
+
+  _buildBackgroudImage(BuildContext context,
+      {BoxFit boxFit = BoxFit.fitWidth, required Widget child}) {
+    return Container(
+      height: context.height < Constants.kMinHeight
+          ? Constants.kMinHeight
+          : context.height,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: boxFit,
+              alignment: Alignment.topCenter,
+              opacity: 0.3,
+              image: AssetImage(Data.headerData['background_image']))),
+      child: child,
+    );
   }
 }
