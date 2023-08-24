@@ -2,11 +2,27 @@ part of "data.dart";
 
 class Data {
   static List<Map<String, dynamic>> sectionTitles = [
-    {"Title": "Projects", "Icon": FontAwesomeIcons.boxOpen},
-    {"Title": "Packages", "Icon": FontAwesomeIcons.lightbulb},
-    {"Title": "Skills", "Icon": FontAwesomeIcons.laptopCode},
+    {
+      "Title": "Projects",
+      "Icon": FontAwesomeIcons.boxOpen,
+      'route': AppRoutes.contact
+    },
+    {
+      "Title": "Packages",
+      "Icon": FontAwesomeIcons.lightbulb,
+      'route': AppRoutes.contact
+    },
+    {
+      "Title": "Skills",
+      "Icon": FontAwesomeIcons.laptopCode,
+      'route': AppRoutes.skills
+    },
     {"Title": "About", "Icon": FontAwesomeIcons.info},
-    {"Title": "Contact", "Icon": FontAwesomeIcons.message}
+    {
+      "Title": "Contact",
+      "Icon": FontAwesomeIcons.message,
+      'route': AppRoutes.contact
+    }
   ];
 
   static final List<SocialMedia> socialMediaLinks = [

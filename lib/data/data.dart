@@ -7,6 +7,7 @@ import 'package:my_portfolio/models/package.dart';
 import 'package:my_portfolio/models/projects.dart';
 import 'package:my_portfolio/models/skills.dart';
 import 'package:my_portfolio/models/social_media.dart';
+import 'package:my_portfolio/routes.dart';
 
 part 'color.dart';
 part 'string.dart';
