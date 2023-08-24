@@ -11,8 +11,6 @@ import 'package:my_portfolio/widgets/AppBar/custom_appBar.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
-import '../widgets/footer/footer.dart';
-
 class ViewWrapper extends StatefulWidget {
   const ViewWrapper(
       {super.key, required this.items, this.itemPositionsListener});
@@ -122,12 +120,6 @@ class _ViewWrapperState extends State<ViewWrapper> {
   final bool _showDownArrow = true;
   bool _enableScroll = true;
   // bool _enableScroll = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    widget.items.add(const Footer());
-  }
 
   @override
   Widget build(BuildContext context) {

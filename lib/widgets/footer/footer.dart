@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/data/data.dart';
+import 'package:my_portfolio/widgets/buttons/animated_button.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
 
 import '../../constants.dart';
-import '../buttons/animated_button.dart';
 import 'components/social_media_llinks.dart';
 
 class Footer extends StatelessWidget {
-  const Footer({
-    super.key,
-  });
+  final Widget? slot;
+  const Footer({super.key, this.slot});
 
   @override
   Widget build(BuildContext context) {
@@ -49,35 +48,39 @@ class Footer extends StatelessWidget {
               const Spacer(
                 flex: 2,
               ),
-              Text(
-                Data.footerData['title'],
-                textAlign: TextAlign.center,
-                style: context.theme.textTheme.displayMedium!.copyWith(
-                  shadows: [
-                    Shadow(
-                      color: Colors.black.withOpacity(0.2), // Shadow color
-                      blurRadius: 5, // Shadow blur radius
-                      offset: const Offset(0, 2), // Shadow offset
-                    ),
-                  ],
-                ),
-              ),
-              40.height,
-              Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                color: context.theme.scaffoldBackgroundColor,
-                child: Text(
-                  Data.footerData['subtitle'],
+              if (slot != null)
+                slot!
+              else ...[
+                Text(
+                  Data.footerData['title'],
                   textAlign: TextAlign.center,
-                  style: context.theme.textTheme.bodyMedium,
+                  style: context.theme.textTheme.displayMedium!.copyWith(
+                    shadows: [
+                      Shadow(
+                        color: Colors.black.withOpacity(0.2), // Shadow color
+                        blurRadius: 5, // Shadow blur radius
+                        offset: const Offset(0, 2), // Shadow offset
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              30.height,
-              const AnimatedButton(
-                title: 'SAY HELLO',
-              ),
-              30.height,
+                40.height,
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  color: context.theme.scaffoldBackgroundColor,
+                  child: Text(
+                    Data.footerData['subtitle'],
+                    textAlign: TextAlign.center,
+                    style: context.theme.textTheme.bodyMedium,
+                  ),
+                ),
+                30.height,
+                const AnimatedButton(
+                  title: 'SAY HELLO',
+                ),
+                30.height,
+              ],
               SocialMediaIconsWidget(
                 socialMediaLinks: Data.footerData['socialMediaData'],
               ),

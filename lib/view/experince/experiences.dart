@@ -2,17 +2,19 @@
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/view/experince/components/timeline.dart';
+import 'package:my_portfolio/widgets/footer/footer.dart';
 import 'package:my_portfolio/widgets/headers/section_header.dart';
 import 'package:my_portfolio/wrappers/header_wrapper.dart';
 import 'package:my_portfolio/wrappers/view_wrapper.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
+
+import '../../widgets/buttons/animated_down_arrow.dart';
 
 class Experiences extends StatefulWidget {
   const Experiences({super.key});
@@ -118,6 +120,7 @@ class _ExperiencesState extends State<Experiences> {
           }),
         ),
       ),
+      const Footer()
     ]);
   }
 
@@ -131,55 +134,6 @@ class _ExperiencesState extends State<Experiences> {
       title: "Where I've worked",
       titleBarBackgroundColor: context.theme.primaryColor,
       subtitleBarBackgroundColor: context.theme.colorScheme.secondary,
-    );
-  }
-}
-
-class AnimatedDownwardArrow extends StatefulWidget {
-  const AnimatedDownwardArrow({super.key});
-
-  @override
-  State<AnimatedDownwardArrow> createState() => _AnimatedDownwardArrowState();
-}
-
-class _AnimatedDownwardArrowState extends State<AnimatedDownwardArrow>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<Offset> _animation;
-  @override
-  void initState() {
-    _controller = AnimationController(vsync: this, duration: 4.seconds);
-
-    _animation = Tween<Offset>(
-            begin: const Offset(0, -2), end: const Offset(0, -3))
-        .animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut))
-      ..addStatusListener((AnimationStatus status) {
-        if (status == AnimationStatus.completed) {
-          _controller.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          _controller.forward();
-        }
-      });
-
-    _controller.forward();
-
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SlideTransition(
-      position: _animation,
-      child: Image.asset(
-        "assets/images/ios-down-arrow.png",
-      ),
     );
   }
 }

@@ -75,7 +75,7 @@ PreferredSizeWidget customAppBar(BuildContext context,
                         color: context.theme.scaffoldBackgroundColor,
                         child: MenuItem(titleInformation: sectionTitle)),
                   55.width,
-                ].animate().slide(
+                ].animate().slideX(
                   curve: Curves.easeInOutCubic,
                   duration: Constants.kAnimationDuration),
           title: const AppBarTitle()),

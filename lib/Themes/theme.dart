@@ -74,7 +74,7 @@ class AppTheme {
       fontWeight: _bold,
       fontStyle: FontStyle.normal,
     ),
-    headlineLarge: const TextStyle(
+    headlineLarge: GoogleFonts.poppins(
       // fontFamily: StringConst.VISUELT_PRO,
       fontSize: 44,
       color: AppColors.black,

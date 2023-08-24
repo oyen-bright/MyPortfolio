@@ -5,8 +5,10 @@ import 'package:my_portfolio/constants.dart';
 
 class AnimatedButton extends StatefulWidget {
   final String title;
+  final void Function()? onPressed;
   const AnimatedButton({
     super.key,
+    this.onPressed,
     required this.title,
   });
 
@@ -54,7 +56,7 @@ class _AnimatedButtonState extends State<AnimatedButton>
         });
       },
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: widget.onPressed ?? () {},
         style: ElevatedButton.styleFrom(
             foregroundColor: Colors.transparent,
             backgroundColor: Colors.transparent,

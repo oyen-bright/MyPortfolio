@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
+import 'package:my_portfolio/routes.dart';
 
 class MenuItem extends StatefulWidget {
   const MenuItem({super.key, required this.titleInformation});
@@ -20,7 +22,9 @@ class _MenuItemState extends State<MenuItem> {
       onHover: (_) => setState(() => onHoverSize = 3),
       onExit: (_) => setState(() => onHoverSize = 0),
       child: TextButton(
-        onPressed: () {},
+        onPressed: () {
+          context.go(AppRoutes.contact);
+        },
         child: AnimatedDefaultTextStyle(
           duration: const Duration(milliseconds: 200),
           curve: Curves.easeIn,
