@@ -8,6 +8,7 @@ import 'package:my_portfolio/data/data.dart';
 import 'package:my_portfolio/util.dart';
 import 'package:my_portfolio/widgets/footer/footer.dart';
 import 'package:my_portfolio/widgets/headers/section_header.dart';
+import 'package:my_portfolio/widgets/skills_widget.dart';
 import 'package:my_portfolio/wrappers/header_wrapper.dart';
 import 'package:my_portfolio/wrappers/view_wrapper.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -110,9 +111,9 @@ class _MySkillsState extends State<MySkills> {
                     titleBarBackgroundColor: context.theme.primaryColor,
                     subtitleBarBackgroundColor:
                         context.theme.colorScheme.secondary,
-                  )
-                  // 60.width,
-                  // _experienceTimeline()
+                  ),
+                  60.width,
+                  const Expanded(child: SkillsSection())
                 ],
               ),
             );
@@ -202,10 +203,11 @@ class _PackagesState extends State<Packages> {
               width: 350,
             )
           : Wrap(
+              runSpacing: 40,
+              spacing: 20,
               children: AnimateList(
-                  interval: 3.seconds,
-                  delay: 3.seconds,
-                  effects: [const FadeEffect()],
+                  interval: 100.milliseconds,
+                  effects: [const SlideEffect(curve: Curves.bounceOut)],
                   children: List.generate(
                       Data.packages.length,
                       (index) => Card(

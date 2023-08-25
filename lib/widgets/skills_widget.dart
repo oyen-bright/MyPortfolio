@@ -1,58 +1,73 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/Extentions/screen_size_extention.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/data/data.dart';
-import 'package:sizedbox_extention/sizedbox_extention.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-class SkillsSection extends StatelessWidget {
+class SkillsSection extends StatefulWidget {
   const SkillsSection({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<SkillsSection> createState() => _SkillsSectionState();
+}
+
+class _SkillsSectionState extends State<SkillsSection> {
+  bool isVisible = false;
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.theme.colorScheme.onSecondary,
-      height: 600,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Spacer(),
-          Container(
-              padding: EdgeInsets.symmetric(horizontal: context.width / 18),
-              width: double.infinity,
-              child:
-                  Text("Skills", style: context.theme.textTheme.displaySmall)),
-          15.height,
-          Flexible(
-            child: Center(
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                child: ListView(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              children: Data.skills
-                  .map((e) => Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: 100,
-                            margin: const EdgeInsets.all(8.0),
-                            child: Image.asset(
-                              e.imageString,
-                              fit: BoxFit.cover,
-                            ),
+    return VisibilityDetector(
+        key: const Key("skills-skills-key"),
+        onVisibilityChanged: (info) {
+          var visibleFraction = info.visibleFraction;
+
+          if (visibleFraction < 1.0) {
+            if (!isVisible) {
+              setState(() {
+                isVisible = true;
+              });
+            }
+          }
+        },
+        child: !isVisible
+            ? const SizedBox(
+                height: 400,
+              )
+            : Wrap(
+                runSpacing: 40,
+                spacing: 20,
+                children: AnimateList(
+                    interval: 100.milliseconds,
+                    effects: [const SlideEffect(curve: Curves.bounceOut)],
+                    children: List.generate(Data.skills.length, (index) {
+                      final data = Data.skills[index];
+                      bool isHovered = false;
+                      return StatefulBuilder(builder: (context, setState) {
+                        return MouseRegion(
+                          onEnter: (_) => setState(() => isHovered = true),
+                          onExit: (_) => setState(() => isHovered = false),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              AnimatedContainer(
+                                duration: 1.seconds,
+                                curve: Curves.fastOutSlowIn,
+                                height: isHovered ? 120 : 100,
+                                margin: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  data.imageString,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Text(data.skillName,
+                                  style: context.theme.textTheme.titleMedium),
+                            ],
                           ),
-                          Text(e.skillName,
-                              style: Theme.of(context).textTheme.titleLarge),
-                        ],
-                      ))
-                  .toList(),
-            )),
-          ),
-          const Spacer(),
-        ],
-      ),
-    );
+                        );
+                      });
+                    })),
+              ));
   }
 }

@@ -269,17 +269,37 @@ class Data {
         skillName: "Dart",
         yearsOfExperience: "2"),
     Skills(
-        imageString: "assets/logos/FirebaseLogo.png",
-        skillName: "Firebase",
+        imageString: "assets/logos/javascript-original.png",
+        skillName: "JavaScript",
         yearsOfExperience: "2"),
     Skills(
         imageString: "assets/logos/python-original.png",
         skillName: "python",
         yearsOfExperience: "2"),
+    // Skills(
     Skills(
-        imageString: "assets/logos/django.png",
-        skillName: "django",
+        imageString: "assets/logos/FirebaseLogo.png",
+        skillName: "Firebase",
         yearsOfExperience: "2"),
+    Skills(
+        imageString: "assets/logos/vue.png",
+        skillName: "Vue.js",
+        yearsOfExperience: "2"),
+    Skills(
+        imageString: "assets/logos/react.png",
+        skillName: "React",
+        yearsOfExperience: "2"),
+    Skills(
+        imageString: "assets/logos/git.png",
+        skillName: "Git",
+        yearsOfExperience: "2"),
+    Skills(
+        imageString: "assets/logos/sass.png",
+        skillName: "Sass",
+        yearsOfExperience: "2"),
+    //     imageString: "assets/logos/django.png",
+    //     skillName: "django",
+    //     yearsOfExperience: "2"),
     Skills(
         imageString: "assets/logos/android-original-wordmark.png",
         skillName: "Android",
@@ -288,14 +308,11 @@ class Data {
         imageString: "assets/logos/swift-original.png",
         skillName: "Swift",
         yearsOfExperience: "2"),
-    Skills(
-        imageString: "assets/logos/java-original.png",
-        skillName: "Java",
-        yearsOfExperience: "2"),
-    Skills(
-        imageString: "assets/logos/javascript-original.png",
-        skillName: "JavaScript",
-        yearsOfExperience: "2"),
+    // Skills(
+    //     imageString: "assets/logos/java-original.png",
+    //     skillName: "Java",
+    //     yearsOfExperience: "2"),
+
     Skills(
         imageString: "assets/logos/html5-original-wordmark.png",
         skillName: "HTML",
@@ -303,6 +320,14 @@ class Data {
     Skills(
         imageString: "assets/logos/css3-original-wordmark.png",
         skillName: "CSS",
+        yearsOfExperience: "2"),
+    Skills(
+        imageString: "assets/logos/figma.png",
+        skillName: "Figma",
+        yearsOfExperience: "2"),
+    Skills(
+        imageString: "assets/logos/xd.png",
+        skillName: "Xd",
         yearsOfExperience: "2"),
   ];
 }
