@@ -3,13 +3,14 @@ part of "data.dart";
 class Data {
   static List<Map<String, dynamic>> sectionTitles = [
     {
-      "Title": "Projects",
+      "Title": "Home",
       "Icon": FontAwesomeIcons.boxOpen,
       'route': AppRoutes.contact
     },
+    {"Title": "About", "Icon": FontAwesomeIcons.info, 'route': AppRoutes.about},
     {
-      "Title": "Packages",
-      "Icon": FontAwesomeIcons.lightbulb,
+      "Title": "Projects",
+      "Icon": FontAwesomeIcons.boxOpen,
       'route': AppRoutes.contact
     },
     {
@@ -17,7 +18,6 @@ class Data {
       "Icon": FontAwesomeIcons.laptopCode,
       'route': AppRoutes.skills
     },
-    {"Title": "About", "Icon": FontAwesomeIcons.info},
     {
       "Title": "Contact",
       "Icon": FontAwesomeIcons.message,

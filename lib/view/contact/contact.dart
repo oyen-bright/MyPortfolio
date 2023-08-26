@@ -1,12 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:my_portfolio/Extentions/screen_size_extention.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/widgets/buttons/animated_button.dart';
 import 'package:my_portfolio/widgets/footer/footer.dart';
 import 'package:my_portfolio/widgets/headers/section_header.dart';
+import 'package:my_portfolio/wrappers/header_wrapper.dart';
 import 'package:my_portfolio/wrappers/view_wrapper.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:sizedbox_extention/sizedbox_extention.dart';
@@ -21,10 +21,8 @@ class ContactMe extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     return ViewWrapper(items: [
-      SizedBox(
-        height: context.height,
-        width: double.infinity,
-        child: Form(
+      HeaderWrapper(
+        web: Form(
           key: formKey,
           child: Center(
             child: ScreenTypeLayout.builder(desktop: (context) {
@@ -108,8 +106,11 @@ class FotterImputContactUsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final headlineFontStyle = context.theme.textTheme.headlineLarge!;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: Constants.kMarginDesktop),
+    return Container(
+      color: Colors.white,
+      padding: const EdgeInsets.symmetric(
+          horizontal: Constants.kMarginDesktop,
+          vertical: Constants.kMarginDesktop),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
