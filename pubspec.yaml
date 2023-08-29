@@ -54,6 +54,7 @@ dependencies:
   google_fonts: ^4.0.4
   http: ^0.13.5
   intl: ^0.18.1
+  model_viewer_plus: ^1.5.0
   pull_to_refresh: ^2.0.0
   random_text_reveal: ^0.0.5
   responsive_builder: ^0.6.4

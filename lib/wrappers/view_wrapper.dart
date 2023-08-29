@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:my_portfolio/Extentions/theme_extention.dart';
 import 'package:my_portfolio/constants.dart';
 import 'package:my_portfolio/controllers/men_drop_controller.dart';
@@ -167,14 +168,14 @@ class _ViewWrapperState extends State<ViewWrapper> {
           //       onPressed: () => _scrollPage(-1),
           //       iconData: Icons.keyboard_arrow_up,
           //     )),
-          // Align(
-          //     alignment: Alignment.centerRight,
-          //     child: HoverButton(
-          //       position: TextPosition.beforeIcon,
-          //       text: "Page Down",
-          //       onPressed: () => _scrollPage(1),
-          //       iconData: Icons.keyboard_arrow_down,
-          //     )),
+          Align(
+              alignment: Alignment.centerRight,
+              child: HoverButton(
+                position: TextPosition.beforeIcon,
+                text: "Page Down",
+                onPressed: () => _scrollPage(1),
+                iconData: Icons.keyboard_arrow_right,
+              )),
 
           ValueListenableBuilder(
             valueListenable: menuController,
@@ -234,6 +235,27 @@ class _ViewWrapperState extends State<ViewWrapper> {
           //     ),
           //   ),
           // ),
+
+          SizedBox(
+            width: 200,
+            child: Center(
+              child: SizedBox(
+                height: 400,
+                width: double.infinity,
+                child: ModelViewer(
+                  backgroundColor: Colors.transparent,
+                  src:
+                      'https://modelviewer.dev/shared-assets/models/Astronaut.glb',
+                  alt: 'A 3D model of an astronaut',
+                  ar: true,
+                  autoRotate: true,
+                  iosSrc:
+                      'https://modelviewer.dev/shared-assets/models/Astronaut.usdz',
+                  disableZoom: true,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
