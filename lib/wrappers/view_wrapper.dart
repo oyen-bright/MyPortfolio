@@ -28,6 +28,8 @@ class _ViewWrapperState extends State<ViewWrapper> {
   late final ItemPositionsListener itemPositionsListener;
   late final ScrollOffsetListener scrollOffsetListener;
   late final MenuDropController menuController;
+  late final ScrollController scrollController;
+  late final FocusNode _focusNode;
 
   @override
   void initState() {
@@ -37,6 +39,7 @@ class _ViewWrapperState extends State<ViewWrapper> {
     itemPositionsListener =
         widget.itemPositionsListener ?? ItemPositionsListener.create();
     scrollOffsetListener = ScrollOffsetListener.create();
+    scrollController = ScrollController();
     _scrollPositionListener();
     _bounceEffect();
 
@@ -112,9 +115,6 @@ class _ViewWrapperState extends State<ViewWrapper> {
       );
     }
   }
-
-  late final ScrollController scrollController;
-  late final FocusNode _focusNode;
 
   Offset cursorPosition = const Offset(0, 0);
 

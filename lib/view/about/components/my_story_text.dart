@@ -8,7 +8,7 @@ class IntroductionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: context.theme.textTheme.titleMedium,
+        style: context.theme.textTheme.bodyLarge,
         children: const [
           TextSpan(
             text: "Welcome to my portfolio website!\n\n",

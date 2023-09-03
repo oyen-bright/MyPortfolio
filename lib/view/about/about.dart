@@ -86,7 +86,109 @@ class _AboutState extends State<About> {
                 subtitleBarBackgroundColor: context.theme.colorScheme.secondary,
               ),
               60.width,
-              const Expanded(child: IntroductionText())
+              Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    "I user a number of tools to aid my creative process when bringing things to life. Listed below are the tools and technologies that i have used over the years.",
+                    style: context.theme.textTheme.bodyLarge,
+                  ),
+                  20.height,
+                  Wrap(
+                    spacing: 30,
+                    runSpacing: 30,
+                    children: [
+                      Container(
+                        // width: 250,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text("Mobile Technologies",
+                                style: context.theme.textTheme.titleMedium!),
+                            10.height,
+                            ...[
+                              "Android",
+                              "Kotlin",
+                              "Jetpack Compose",
+                              "Flutter",
+                              "Dart",
+                              "Java",
+                              "Swift"
+                            ]
+                                .map((e) => Column(children: [
+                                      10.height,
+                                      Text(
+                                        e,
+                                        style:
+                                            context.theme.textTheme.bodyLarge,
+                                      ),
+                                    ]))
+                                .toList()
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        // width: 800,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text("Web / Cloud Technologies",
+                                style: context.theme.textTheme.titleMedium!),
+                            10.height,
+                            ...[
+                              "HTML 5",
+                              "CSS 3",
+                              "JavaScript",
+                              "Python",
+                              "Vue JS",
+                              "Firebase",
+                              "Git",
+                              "Node JS",
+                              "Express",
+                              "Google Cloud",
+                            ]
+                                .map((e) => Column(children: [
+                                      10.height,
+                                      Text(
+                                        e,
+                                        style:
+                                            context.theme.textTheme.bodyLarge,
+                                      ),
+                                    ]))
+                                .toList()
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        // width: 800,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text("Design Technologies",
+                                style: context.theme.textTheme.titleMedium!),
+                            10.height,
+                            ...["Adobe XD", "Figma"]
+                                .map((e) => Column(children: [
+                                      10.height,
+                                      Text(
+                                        e,
+                                        style:
+                                            context.theme.textTheme.bodyLarge,
+                                      ),
+                                    ]))
+                                .toList()
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                ],
+              ))
+              // const Expanded(child: IntroductionText())
             ],
           ),
         ),
@@ -105,16 +207,20 @@ class _AboutState extends State<About> {
               ),
               60.width,
               Expanded(
-                  child: Wrap(
-                spacing: 30,
-                runSpacing: 39,
-                children: const [
-                  SocialLink(icon: FontAwesomeIcons.linkedin, text: 'LinkedIn'),
-                  SocialLink(icon: FontAwesomeIcons.inbox, text: 'Email'),
-                  SocialLink(icon: FontAwesomeIcons.twitter, text: 'Twitter'),
-                  SocialLink(
-                      icon: FontAwesomeIcons.instagram, text: 'Instagram'),
-                ],
+                  child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Wrap(
+                  spacing: 30,
+                  runSpacing: 39,
+                  children: const [
+                    SocialLink(
+                        icon: FontAwesomeIcons.linkedin, text: 'LinkedIn'),
+                    SocialLink(icon: FontAwesomeIcons.inbox, text: 'Email'),
+                    SocialLink(icon: FontAwesomeIcons.twitter, text: 'Twitter'),
+                    SocialLink(
+                        icon: FontAwesomeIcons.instagram, text: 'Instagram'),
+                  ],
+                ),
               ))
             ],
           ),
@@ -200,6 +306,7 @@ class _SocialLinkState extends State<SocialLink> {
         child: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               Icon(widget.icon),
               const SizedBox(width: 8),
