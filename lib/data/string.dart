@@ -11,7 +11,7 @@ class Data {
     {
       "Title": "Projects",
       "Icon": FontAwesomeIcons.boxOpen,
-      'route': AppRoutes.contact
+      'route': AppRoutes.projects
     },
     {
       "Title": "Skills",

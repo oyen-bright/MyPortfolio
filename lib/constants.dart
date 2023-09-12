@@ -14,4 +14,6 @@ class Constants {
 
   static final kIconButtonAnimationDuration = 200.milliseconds;
   static final kIconButtonReverseAnimationDuration = 1.seconds;
+
+  static const kRotateAngle = -0.05;
 }
